@@ -2,6 +2,10 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <clientwindow.h>
+#include <QtNetwork>
+#include <QNetworkAccessManager>
+#include <QJsonDocument>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -15,7 +19,18 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+private slots:
+    void on_button_login_clicked();
+    void loginSlot (QNetworkReply *reply);
+
 private:
     Ui::MainWindow *ui;
+    ClientWindow *objectClientWindow;
+    QNetworkAccessManager *loginManager;
+    QNetworkReply *reply;
+    QByteArray response_data;
+    QString id_card;
+    QString pin;
+
 };
 #endif // MAINWINDOW_H
