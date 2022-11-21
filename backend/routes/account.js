@@ -1,46 +1,41 @@
 const express = require('express');
 const router = express.Router();
-const account = require('../models/account_model');
-
-router.get('/',
-    function (request, response) {
-        account.getAll(function (err, dbResult) {
-            if (err) {
-                response.json(err);
-            } else {
-                console.log(dbResult.rows);
-                response.json(dbResult.rows);
-            }
-        })
-    });
+const card = require('../models/account_model');
 
 router.get('/:id?',
-    function (request, response) {
-        account.getById(request.params.id, function (err, dbResult) {
-            if (err) {
-                response.json(err);
-            } else {
-                response.json(dbResult.rows);
-            }
-        })
+ function(request, response) {
+  if (request.params.id) {
+    card.getById(request.params.id, function(err, dbResult) {
+      if (err) {
+        response.json(err);
+      } else {
+        response.json(dbResult[0]);
+      }
     });
-
-
+  } else {
+    card.getAll(function(err, dbResult) {
+      if (err) {
+        response.json(err);
+      } else {
+        response.json(dbResult);
+      }
+    });
+  }
+});
 router.post('/', 
 function(request, response) {
-  account.add(request.body, function(err, dbResult) {
+  card.add(request.body, function(err, dbResult) {
     if (err) {
       response.json(err);
     } else {
-      response.json(request.body);
+      response.json(request.body); 
     }
   });
 });
 
-
 router.delete('/:id', 
 function(request, response) {
-  account.delete(request.params.id, function(err, dbResult) {
+  card.delete(request.params.id, function(err, dbResult) {
     if (err) {
       response.json(err);
     } else {
@@ -52,7 +47,7 @@ function(request, response) {
 
 router.put('/:id', 
 function(request, response) {
-  account.update(request.params.id, request.body, function(err, dbResult) {
+  card.update(request.params.id, request.body, function(err, dbResult) {
     if (err) {
       response.json(err);
     } else {
