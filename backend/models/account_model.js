@@ -4,23 +4,26 @@ const account = {
   getById: function(id, callback) {
     return db.query('select * from account where id_account=?', [id], callback);
   },
+  
   getAll: function(callback) {
     return db.query('select * from account', callback);
   },
-  add: function(account, callback) {
+
+  add: function(add_data, callback) {
     return db.query(
       'insert into account (id_client,balance) values(?,?)',
-      [account.id_client, account.balance],
+      [add_data.id_client, add_data.balance],
       callback
     );
   },
   delete: function(id, callback) {
     return db.query('delete from account where id_account=?', [id], callback);
   },
-  update: function(id, account, callback) {
+
+  update: function(id, update_data, callback) {
     return db.query(
       'update account set id_client=?,balance=? where id_account=?',
-      [account.id_client, account.balance, id],
+      [update_data.id_client, update_data.balance, id],
       callback
     );
   }
