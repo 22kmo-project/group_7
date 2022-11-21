@@ -19,8 +19,8 @@ const client = {
   },
   update: function(id, client, callback) {
     return db.query(
-      'update client set fname=?,lname=?,addr_street=?,addr_municipality where id_client=?',
-      [client.fname, client.lname, client.addr_street, client.addr_municipality, client.phone_num],
+      'update client set fname=?,lname=?,addr_street=?,addr_municipality=?,phone_num=? where id_client=?',
+      [client.fname, client.lname, client.addr_street, client.addr_municipality, client.phone_num, id],
       callback
     );
   }
