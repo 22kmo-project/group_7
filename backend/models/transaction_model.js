@@ -9,8 +9,8 @@ const transaction = {
   },
   add: function(transaction, callback) {
     return db.query(
-      'insert into transaction (DATE,transaction,balance) values(?,?,?)',
-      [transaction.DATE, transaction.transaction, transaction.balance],
+      'insert into transaction (id_account,id_card,event_date,event,balance) values(?,?,?,?,?)',
+      [transaction.id_account, transaction.id_card, transaction.event_date, transaction.event, transaction.balance],
       callback
     );
   },
@@ -19,8 +19,8 @@ const transaction = {
   },
   update: function(id, transaction, callback) {
     return db.query(
-      'update transaction set DATE=?,transaction=?, balance=? where id_transaction=?',
-      [transaction.DATE, transaction.transaction, transaction.balance, id],
+      'update transaction set id_account=?,id_card=?,event_date=?,event=?,balance=? where id_transaction=?',
+      [transaction.id_account, transaction.id_card, transaction.event_date, transaction.event, transaction.balance, id],
       callback
     );
   }
