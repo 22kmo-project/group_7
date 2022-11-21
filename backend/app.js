@@ -8,6 +8,9 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var cardRouter = require('./routes/card');
 var loginRouter = require('./routes/login');
+var clientRouter = require('./routes/client');
+var accountRouter = require('./routes/account');
+var transactionRouter = require('./transaction/account');
 
 var app = express();
 
@@ -43,6 +46,9 @@ app.use(authenticateToken); // kaikki tämän rivin jälkeen on suojattu
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/card', cardRouter);
+app.use('/client', clientRouter);
+app.use('/account', accountRouter);
+app.use('/transaction', transactionRouter);
 
 
 module.exports = app;
