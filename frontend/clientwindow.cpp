@@ -25,3 +25,27 @@ void ClientWindow::setWebToken(const QString &newWebToken)
 {
     webToken = newWebToken;
 }
+
+void ClientWindow::on_button_nayta_saldo_clicked()
+{
+
+}
+
+
+void ClientWindow::on_button_nayta_tilitapahtumat_clicked()
+{
+
+}
+
+
+void ClientWindow::on_button_nosta_rahaa_clicked()
+{
+
+}
+
+
+void ClientWindow::on_button_siirra_rahaa_clicked()
+{
+
+}
+
