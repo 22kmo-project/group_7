@@ -31,6 +31,58 @@
     <string>TextLabel</string>
    </property>
   </widget>
+  <widget class="QPushButton" name="button_nayta_saldo">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>140</y>
+     <width>151</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Näytä saldo</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="button_nayta_tilitapahtumat">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>180</y>
+     <width>151</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Näytä tilitapahtumat</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="button_nosta_rahaa">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>220</y>
+     <width>151</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Nosta rahaa</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="button_siirra_rahaa">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>260</y>
+     <width>151</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Siirrä rahaa</string>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>
