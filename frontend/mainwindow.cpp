@@ -6,13 +6,15 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    QWidget::showMaximized();//Näytetään ikkuna kokonäytöllä
+    //QWidget::showMaximized();//Näytetään ikkuna kokonäytöllä
 
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete objectClientWindow;
+    objectClientWindow=nullptr;
 }
 
 
@@ -45,17 +47,36 @@ void MainWindow::loginSlot(QNetworkReply *reply)
     int test=QString::compare(response_data, "false");
     qDebug()<<test;
 
-    if(test==0){
+    if(response_data.length()==0){
         ui->text_id_card->clear();
         ui->text_pin->clear();
-        ui->label_info->setText("Kortinnumero ja pin-koodi eivät täsmää!");
+        ui->label_info->setText("Palvelin ei vastaa!");
+    }
+    else{
+
+    if(QString::compare(response_data,"-4078")==0){
+        ui->text_id_card->clear();
+        ui->text_pin->clear();
+        ui->label_info->setText("Virhe tietokantayhteydessä!");
     }
 
-    else {
-        objectClientWindow = new ClientWindow(id_card);
-        objectClientWindow->setWebToken(response_data);
-        objectClientWindow->show();
+    else{
+
+        if(test==0){
+            ui->text_id_card->clear();
+            ui->text_pin->clear();
+            ui->label_info->setText("Kortinnumero ja pin-koodi eivät täsmää!");
+        }
+
+        else {
+            objectClientWindow = new ClientWindow(id_card);
+            objectClientWindow->setWebToken(response_data);
+            objectClientWindow->show();
+        }
     }
+    }
+
+
 
 }
 

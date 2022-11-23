@@ -1,12 +1,13 @@
 #include "clientwindow.h"
 #include "ui_clientwindow.h"
+#include <QDebug>
 
 ClientWindow::ClientWindow(QString id_card, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::ClientWindow)
 {
     ui->setupUi(this);
-    QWidget::showMaximized();//Näytetään ikkuna kokonäytöllä
+    //QWidget::showMaximized();//Näytetään ikkuna kokonäytöllä
     ui->label_id_card->setText(id_card);
 
 }
@@ -28,7 +29,8 @@ void ClientWindow::setWebToken(const QString &newWebToken)
 
 void ClientWindow::on_button_nayta_saldo_clicked()
 {
-
+    QString wb=this->getWebToken();
+    qDebug()<<wb;
 }
 
 
