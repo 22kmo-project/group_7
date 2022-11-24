@@ -42,8 +42,6 @@ void MainWindow::loginSlot(QNetworkReply *reply)
 {
     response_data=reply->readAll();
     qDebug()<<response_data;
-
-
     int test=QString::compare(response_data, "false");
     qDebug()<<test;
 
@@ -70,13 +68,14 @@ void MainWindow::loginSlot(QNetworkReply *reply)
 
         else {
             objectClientWindow = new ClientWindow(id_card);
-            objectClientWindow->setWebToken(response_data);
+            objectClientWindow->setWebToken("Bearer "+response_data);
             objectClientWindow->show();
         }
     }
     }
 
-
+    reply->deleteLater();
+    loginManager->deleteLater();
 
 }
 
