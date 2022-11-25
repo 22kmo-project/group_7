@@ -11,17 +11,20 @@ CONFIG += c++17
 
 SOURCES += \
     clientwindow.cpp \
+    drawwindow.cpp \
     main.cpp \
     mainwindow.cpp \
     myurl.cpp
 
 HEADERS += \
     clientwindow.h \
+    drawwindow.h \
     mainwindow.h \
     myurl.h
 
 FORMS += \
     clientwindow.ui \
+    drawwindow.ui \
     mainwindow.ui
 
 # Default rules for deployment.

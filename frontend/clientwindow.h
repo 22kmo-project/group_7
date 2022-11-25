@@ -5,6 +5,7 @@
 #include <QtNetwork>
 #include <QNetworkAccessManager>
 #include <QJsonDocument>
+#include "drawwindow.h"
 
 namespace Ui {
 class ClientWindow;
@@ -33,8 +34,7 @@ private:
     QByteArray webToken;
     QString myCardId;
 
-    QNetworkAccessManager *balanceManager;
-    QNetworkReply *reply;
+    DrawWindow *objectDrawWindow;
     QByteArray response_data;
 };
 

@@ -17,6 +17,8 @@ ClientWindow::ClientWindow(QString id_card, QWidget *parent) :
 ClientWindow::~ClientWindow()
 {
     delete ui;
+    delete objectDrawWindow;
+    objectDrawWindow=nullptr;
 }
 
 /*
@@ -48,22 +50,14 @@ void ClientWindow::on_button_nayta_tilitapahtumat_clicked()
 
 void ClientWindow::on_button_nosta_rahaa_clicked()
 {
-    QString site_url=MyURL::getBaseUrl()+"/accountclient/"+myCardId;
-    QNetworkRequest request((site_url));
-    //WEBTOKEN ALKU
-    request.setRawHeader(QByteArray("Authorization"),(webToken));
-    //WEBTOKEN LOPPU
-    balanceManager = new QNetworkAccessManager(this);
-
-    connect(balanceManager, SIGNAL(finished (QNetworkReply*)), this, SLOT(balanceSlot(QNetworkReply*)));
-
-    reply = balanceManager->get(request);
+    objectDrawWindow = new DrawWindow(webToken,myCardId);
+    objectDrawWindow->setWebToken("Bearer "+response_data);
+    objectDrawWindow->show();
 }
 
 
 void ClientWindow::on_button_siirra_rahaa_clicked()
 {
-
 
 }
 
