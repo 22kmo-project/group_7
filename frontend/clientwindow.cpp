@@ -41,7 +41,6 @@ void ClientWindow::on_button_nayta_tilitapahtumat_clicked()
 void ClientWindow::on_button_nosta_rahaa_clicked()
 {
     objectDrawWindow = new DrawWindow(webToken,myCardId);
-    objectDrawWindow->setWebToken("Bearer "+response_data);
     objectDrawWindow->show();
 }
 

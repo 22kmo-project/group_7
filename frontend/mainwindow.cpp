@@ -6,8 +6,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    //QWidget::showMaximized();//Näytetään ikkuna kokonäytöllä
-
+    //QWidget::showMaximized(); //Näytetään ikkuna kokonäytöllä
 }
 
 MainWindow::~MainWindow()
@@ -77,5 +76,11 @@ void MainWindow::loginSlot(QNetworkReply *reply)
     reply->deleteLater();
     loginManager->deleteLater();
 
+}
+
+
+void MainWindow::on_button_exit_clicked()
+{
+    QApplication::closeAllWindows();
 }
 
