@@ -26,8 +26,11 @@ void ClientWindow::setWebToken(const QByteArray &newWebToken)
     webToken = newWebToken;
 }
 
-void ClientWindow::on_button_nayta_saldo_clicked()
+void ClientWindow::on_button_nayta_saldo_clicked()//ESSI
 {
+    objectBalanceWindow = new BalanceWindow(webToken,myCardId);
+    objectBalanceWindow->setWebToken("Bearer "+response_data);
+    objectBalanceWindow->show();
 
 }
 
