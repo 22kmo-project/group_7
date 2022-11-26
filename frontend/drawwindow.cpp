@@ -20,8 +20,6 @@ DrawWindow::DrawWindow(QByteArray wt,QString id_card, QWidget *parent) :
     connect(drawManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(drawSlot(QNetworkReply*)));
     reply = drawManager->get(request);
 
-    //reply->deleteLater();
-    //drawManager->deleteLater();
 }
 
 DrawWindow::~DrawWindow()
@@ -47,6 +45,9 @@ void DrawWindow::drawSlot(QNetworkReply *reply)
 
     ui->label_client_name->setText(clientName);
     ui->label_balance->setText(balance);
+
+    reply->deleteLater();
+    drawManager->deleteLater();
 }
 
 void DrawWindow::checkMoney(double bal, double am)
