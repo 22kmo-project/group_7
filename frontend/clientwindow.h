@@ -5,6 +5,7 @@
 #include <QtNetwork>
 #include <QNetworkAccessManager>
 #include <QJsonDocument>
+#include "drawwindow.h"
 
 namespace Ui {
 class ClientWindow;
@@ -18,7 +19,7 @@ public:
     explicit ClientWindow(QString id_card, QWidget *parent = nullptr);
     ~ClientWindow();
 
-    const QString &getWebToken() const;
+    //const QString &getWebToken() const;
     void setWebToken(const QByteArray &newWebToken);
 
 private slots:
@@ -26,15 +27,14 @@ private slots:
     void on_button_nayta_tilitapahtumat_clicked();
     void on_button_nosta_rahaa_clicked();
     void on_button_siirra_rahaa_clicked();
-    void balanceSlot (QNetworkReply *reply);
+
+    void on_button_lopeta_clicked();
 
 private:
     Ui::ClientWindow *ui;
     QByteArray webToken;
     QString myCardId;
-
-    QNetworkAccessManager *balanceManager;
-    QNetworkReply *reply;
+    DrawWindow *objectDrawWindow;
     QByteArray response_data;
 };
 
