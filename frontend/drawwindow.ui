@@ -186,11 +186,11 @@
    </property>
    <property name="font">
     <font>
-     <pointsize>20</pointsize>
+     <pointsize>15</pointsize>
     </font>
    </property>
    <property name="text">
-    <string>Text</string>
+    <string/>
    </property>
   </widget>
   <widget class="QLabel" name="label_client_name">

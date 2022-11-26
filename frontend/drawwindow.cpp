@@ -43,8 +43,62 @@ void DrawWindow::drawSlot(QNetworkReply *reply)
 
     clientName=json_obj["client_name"].toString();
     balance=QString::number(json_obj["balance"].toDouble());
+    balanceValue = QString(balance).toDouble();
 
     ui->label_client_name->setText(clientName);
     ui->label_balance->setText(balance);
-
 }
+
+void DrawWindow::checkMoney(double bal, double am)
+{
+    if(bal<am){
+        ui->label_info->setText("Tilillä ei ole tarpeeksi rahaa, valitse uusi summa tai paina Sulje.");
+    }
+    else{
+        bal=bal-am;
+        balance=QString::number(bal);
+        ui->label_info->setText("Ole hyvä ja ota rahat, tilillä on noston jälkeen "+balance+" euroa.");
+    }
+}
+
+void DrawWindow::on_button_20e_clicked()
+{
+    checkMoney(balanceValue,20);
+}
+
+
+void DrawWindow::on_button_40e_clicked()
+{
+    checkMoney(balanceValue,40);
+}
+
+
+void DrawWindow::on_button_60e_clicked()
+{
+    checkMoney(balanceValue,60);
+}
+
+
+void DrawWindow::on_button_100e_clicked()
+{
+    checkMoney(balanceValue,100);
+}
+
+
+void DrawWindow::on_button_200e_clicked()
+{
+    checkMoney(balanceValue,200);
+}
+
+
+void DrawWindow::on_button_500e_clicked()
+{
+    checkMoney(balanceValue,500);
+}
+
+
+void DrawWindow::on_button_exit_clicked()
+{
+    close();
+}
+

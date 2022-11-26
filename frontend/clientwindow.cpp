@@ -21,24 +21,14 @@ ClientWindow::~ClientWindow()
     objectDrawWindow=nullptr;
 }
 
-/*
-const QString &ClientWindow::getWebToken() const
-{
-    return webToken;
-}
-*/
 void ClientWindow::setWebToken(const QByteArray &newWebToken)
 {
     webToken = newWebToken;
 }
 
-
 void ClientWindow::on_button_nayta_saldo_clicked()
 {
-    /*
-    QString wb=this->getWebToken();
-    qDebug()<<wb;
-    */
+
 }
 
 
@@ -61,9 +51,9 @@ void ClientWindow::on_button_siirra_rahaa_clicked()
 
 }
 
-void ClientWindow::balanceSlot(QNetworkReply *reply)
+void ClientWindow::on_button_lopeta_clicked()
 {
-    response_data=reply->readAll();
-    qDebug()<<response_data;
+    qApp->quit();
+    QProcess::startDetached(qApp->arguments()[0], qApp->arguments());
 }
 
