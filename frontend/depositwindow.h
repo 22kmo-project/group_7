@@ -1,5 +1,5 @@
-#ifndef DRAWWINDOW_H
-#define DRAWWINDOW_H
+#ifndef DEPOSITWINDOW_H
+#define DEPOSITWINDOW_H
 
 #include <QDialog>
 #include <QtNetwork>
@@ -8,35 +8,44 @@
 #include <QDate>
 
 namespace Ui {
-class DrawWindow;
+class DepositWindow;
 }
 
-class DrawWindow : public QDialog
+class DepositWindow : public QDialog
 {
     Q_OBJECT
 
-
 public:
-    explicit DrawWindow(QByteArray wt, QString id_card, QWidget *parent = nullptr);
-    ~DrawWindow();
-    //const QString &getWebToken() const;
+    explicit DepositWindow(QByteArray wt, QString id_card, QWidget *parent = nullptr);
+    ~DepositWindow();
 
 private slots:
-    void drawSlot (QNetworkReply *reply);
+    void depositSlot (QNetworkReply *reply);
     void updateBalanceSlot (QNetworkReply *reply);
     void postTransactionSlot (QNetworkReply *reply);
-    void on_button_20e_clicked();
-    void on_button_40e_clicked();
-    void on_button_60e_clicked();
-    void on_button_100e_clicked();
-    void on_button_200e_clicked();
-    void on_button_500e_clicked();
+
     void on_button_ok_clicked();
+
     void on_button_exit_clicked();
-    void checkMoney(double bal, double am);
+
+    void on_button_20e_clicked();
+
+    void on_button_40e_clicked();
+
+    void on_button_60e_clicked();
+
+    void on_button_100e_clicked();
+
+    void on_button_200e_clicked();
+
+    void on_button_300e_clicked();
+
+    void on_button_400e_clicked();
+
+    void on_button_500e_clicked();
 
 private:
-    Ui::DrawWindow *ui;
+    Ui::DepositWindow *ui;
     QByteArray webToken;
     QString myCardId;
     QString myClientId;
@@ -48,10 +57,12 @@ private:
     QString clientName;
     QString balance;
     QString amount;
+    double amountValue;
     double balanceValue;
-    QNetworkAccessManager *drawManager;
+    QNetworkAccessManager *depositManager;
     QNetworkAccessManager *updateManager;
     QNetworkAccessManager *postManager;
+
 };
 
-#endif // DRAWWINDOW_H
+#endif // DEPOSITWINDOW_H

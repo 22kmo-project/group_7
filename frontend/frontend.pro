@@ -12,6 +12,7 @@ CONFIG += c++17
 SOURCES += \
     balancewindow.cpp \
     clientwindow.cpp \
+    depositwindow.cpp \
     drawwindow.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -21,6 +22,7 @@ SOURCES += \
 HEADERS += \
     balancewindow.h \
     clientwindow.h \
+    depositwindow.h \
     drawwindow.h \
     mainwindow.h \
     myurl.h \
@@ -29,6 +31,7 @@ HEADERS += \
 FORMS += \
     balancewindow.ui \
     clientwindow.ui \
+    depositwindow.ui \
     drawwindow.ui \
     mainwindow.ui \
     transactionwindow.ui

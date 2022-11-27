@@ -23,7 +23,6 @@ public:
 private slots:
     void on_button_login_clicked();
     void loginSlot (QNetworkReply *reply);
-
     void on_button_exit_clicked();
 
 private:

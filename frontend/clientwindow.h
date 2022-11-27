@@ -8,6 +8,7 @@
 #include "drawwindow.h"
 #include "balancewindow.h"
 #include "transactionwindow.h"
+#include "depositwindow.h"
 
 namespace Ui {
 class ClientWindow;
@@ -27,10 +28,9 @@ public:
 private slots:
     void on_button_nayta_saldo_clicked();
     void on_pushButtonTrans_clicked();
-    void on_button_nosta_rahaa_clicked();
-    void on_button_siirra_rahaa_clicked();
-
-    void on_button_lopeta_clicked();
+    void on_button_withdraw_clicked();
+    void on_button_deposit_clicked();
+    void on_button_exit_clicked();
 
 private:
     Ui::ClientWindow *ui;
@@ -40,6 +40,7 @@ private:
     QByteArray response_data;
     BalanceWindow *objectBalanceWindow;
     TransactionWindow *objectTransactionWindow;
+    DepositWindow *objectDepositWindow;
 };
 
 #endif // CLIENTWINDOW_H

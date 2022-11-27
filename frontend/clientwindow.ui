@@ -44,7 +44,7 @@
     <string>Näytä saldo</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="button_nosta_rahaa">
+  <widget class="QPushButton" name="button_withdraw">
    <property name="geometry">
     <rect>
      <x>40</x>
@@ -57,7 +57,7 @@
     <string>Nosta rahaa</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="button_siirra_rahaa">
+  <widget class="QPushButton" name="button_deposit">
    <property name="geometry">
     <rect>
      <x>40</x>
@@ -67,10 +67,10 @@
     </rect>
    </property>
    <property name="text">
-    <string>Siirrä rahaa</string>
+    <string>Talleta rahaa</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="button_lopeta">
+  <widget class="QPushButton" name="button_exit">
    <property name="geometry">
     <rect>
      <x>40</x>

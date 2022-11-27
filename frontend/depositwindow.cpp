@@ -1,34 +1,31 @@
-#include "drawwindow.h"
-#include "ui_drawwindow.h"
+#include "depositwindow.h"
+#include "ui_depositwindow.h"
 #include <myurl.h>
 #include <QDebug>
 
-DrawWindow::DrawWindow(QByteArray wt,QString id_card, QWidget *parent) :
+DepositWindow::DepositWindow(QByteArray wt, QString id_card, QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::DrawWindow)
+    ui(new Ui::DepositWindow)
 {
     ui->setupUi(this);
-    //QWidget::showMaximized();//Näytetään ikkuna kokonäytöllä
     webToken=wt;
     myCardId=id_card;
-
     QString site_url=MyURL::getBaseUrl()+"/accountclient/"+myCardId;
     QNetworkRequest request((site_url));
     //WEBTOKEN ALKU
     request.setRawHeader(QByteArray("Authorization"),(webToken));
     //WEBTOKEN LOPPU
-    drawManager = new QNetworkAccessManager(this);
-    connect(drawManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(drawSlot(QNetworkReply*)));
-    reply = drawManager->get(request);
-
+    depositManager = new QNetworkAccessManager(this);
+    connect(depositManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(depositSlot(QNetworkReply*)));
+    reply = depositManager->get(request);
 }
 
-DrawWindow::~DrawWindow()
+DepositWindow::~DepositWindow()
 {
     delete ui;
 }
 
-void DrawWindow::drawSlot(QNetworkReply *reply)
+void DepositWindow::depositSlot(QNetworkReply *reply)
 {
     QByteArray response_data=reply->readAll();
     qDebug()<<response_data;
@@ -46,65 +43,93 @@ void DrawWindow::drawSlot(QNetworkReply *reply)
     ui->label_balance->setText(balance);
 
     reply->deleteLater();
-    drawManager->deleteLater();
+    depositManager->deleteLater();
+
 }
 
-void DrawWindow::checkMoney(double bal, double am)
+void DepositWindow::updateBalanceSlot(QNetworkReply *reply)
 {
-    if(bal<am){
-        ui->label_info->setText("Tilillä ei ole tarpeeksi rahaa, valitse uusi summa tai paina Sulje.");
-    }
-    else{
-        bal=bal-am;
-        balance=QString::number(bal);
-        ui->label_info->setText("Varmista nosto painamalla OK.\nTilillä on noston jälkeen "+balance+" euroa.");
-    }
+    response_data=reply->readAll();
+    qDebug()<<response_data;
+    reply->deleteLater();
+    updateManager->deleteLater();
+    this->close();
+
 }
 
-void DrawWindow::on_button_20e_clicked()
+void DepositWindow::postTransactionSlot(QNetworkReply *replyPost)
 {
-    checkMoney(balanceValue,20);
-    amount="-20";
+    response_data=replyPost->readAll();
+    qDebug()<<response_data;
+    replyPost->deleteLater();
+    postManager->deleteLater();
+    this->close();
 }
 
 
-void DrawWindow::on_button_40e_clicked()
+
+void DepositWindow::on_button_20e_clicked()
 {
-    checkMoney(balanceValue,40);
-    amount="-40";
+    ui->label_info->setText("Varmista talletus painamalla OK tai peruuta painamalla Sulje.");
+    amount="20";
 }
 
 
-void DrawWindow::on_button_60e_clicked()
+void DepositWindow::on_button_40e_clicked()
 {
-    checkMoney(balanceValue,60);
-    amount="-60";
+    ui->label_info->setText("Varmista talletus painamalla OK tai peruuta painamalla Sulje.");
+    amount="40";
 }
 
 
-void DrawWindow::on_button_100e_clicked()
+void DepositWindow::on_button_60e_clicked()
 {
-    checkMoney(balanceValue,100);
-    amount="-100";
+    ui->label_info->setText("Varmista talletus painamalla OK tai peruuta painamalla Sulje.");
+    amount="60";
 }
 
 
-void DrawWindow::on_button_200e_clicked()
+void DepositWindow::on_button_100e_clicked()
 {
-    checkMoney(balanceValue,200);
-    amount="-200";
+    ui->label_info->setText("Varmista talletus painamalla OK tai peruuta painamalla Sulje.");
+    amount="100";
 }
 
 
-void DrawWindow::on_button_500e_clicked()
+void DepositWindow::on_button_200e_clicked()
 {
-    checkMoney(balanceValue,500);
-    amount="-500";
+    ui->label_info->setText("Varmista talletus painamalla OK tai peruuta painamalla Sulje.");
+    amount="200";
 }
 
-void DrawWindow::on_button_ok_clicked()
+
+void DepositWindow::on_button_300e_clicked()
+{
+    ui->label_info->setText("Varmista talletus painamalla OK tai peruuta painamalla Sulje.");
+    amount="300";
+}
+
+
+void DepositWindow::on_button_400e_clicked()
+{
+    ui->label_info->setText("Varmista talletus painamalla OK tai peruuta painamalla Sulje.");
+    amount="400";
+}
+
+
+void DepositWindow::on_button_500e_clicked()
+{
+    ui->label_info->setText("Varmista talletus painamalla OK tai peruuta painamalla Sulje.");
+    amount="500";
+}
+
+void DepositWindow::on_button_ok_clicked()
 {
     //Update account table
+    amountValue=QString(amount).toDouble();
+    balanceValue=balanceValue+amountValue;
+    balance=QString::number(balanceValue);
+
     QJsonObject jsonObjUpdate;
     jsonObjUpdate.insert("id_client",myClientId);
     jsonObjUpdate.insert("balance",balance);
@@ -127,9 +152,8 @@ void DrawWindow::on_button_ok_clicked()
     jsonObjPost.insert("id_account",myAccountId);
     jsonObjPost.insert("id_card",myCardId);
     jsonObjPost.insert("transaction_date",QDate::currentDate().toString(Qt::ISODate));
-    jsonObjPost.insert("transaction","nosto");
+    jsonObjPost.insert("transaction","talletus");
     jsonObjPost.insert("amount",amount);
-
     QString site_urlPost=MyURL::getBaseUrl()+"/transaction/";
     QNetworkRequest requestPost((site_urlPost));
     requestPost.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
@@ -142,34 +166,12 @@ void DrawWindow::on_button_ok_clicked()
     connect(postManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(postTransactionSlot(QNetworkReply*)));
 
     replyPost=postManager->post(requestPost, QJsonDocument(jsonObjPost).toJson());
-
 }
 
 
-void DrawWindow::on_button_exit_clicked()
+void DepositWindow::on_button_exit_clicked()
 {
     close();
 }
-
-void DrawWindow::updateBalanceSlot(QNetworkReply *reply)
-{
-    response_data=reply->readAll();
-    qDebug()<<response_data;
-    reply->deleteLater();
-    updateManager->deleteLater();
-    this->close();
-}
-
-void DrawWindow::postTransactionSlot(QNetworkReply *replyPost)
-{
-    response_data=replyPost->readAll();
-    qDebug()<<response_data;
-    replyPost->deleteLater();
-    postManager->deleteLater();
-    this->close();
-}
-
-
-
 
 
