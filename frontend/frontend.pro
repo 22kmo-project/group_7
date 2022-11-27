@@ -15,20 +15,23 @@ SOURCES += \
     drawwindow.cpp \
     main.cpp \
     mainwindow.cpp \
-    myurl.cpp
+    myurl.cpp \
+    transactionwindow.cpp
 
 HEADERS += \
     balancewindow.h \
     clientwindow.h \
     drawwindow.h \
     mainwindow.h \
-    myurl.h
+    myurl.h \
+    transactionwindow.h
 
 FORMS += \
     balancewindow.ui \
     clientwindow.ui \
     drawwindow.ui \
-    mainwindow.ui
+    mainwindow.ui \
+    transactionwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
