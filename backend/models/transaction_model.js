@@ -1,6 +1,11 @@
 const db = require('../database');
 
 const transaction = {
+  //Tämä tulee sovelluksen näytä saldo -kohtaan, hakee 10 viimeisintä tilitapahtumaa
+  //getTenTransactions: function(id, callback) {
+    //return db.query('select * from transaction where id_account=? limit 10;', [id], callback);
+  //},
+
   getById: function(id, callback) {
     return db.query('select * from transaction where id_transaction=?', [id], callback);
   },
