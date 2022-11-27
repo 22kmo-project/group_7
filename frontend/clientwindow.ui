@@ -44,19 +44,6 @@
     <string>Näytä saldo</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="button_nayta_tilitapahtumat">
-   <property name="geometry">
-    <rect>
-     <x>40</x>
-     <y>180</y>
-     <width>151</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Näytä tilitapahtumat</string>
-   </property>
-  </widget>
   <widget class="QPushButton" name="button_nosta_rahaa">
    <property name="geometry">
     <rect>
@@ -94,6 +81,19 @@
    </property>
    <property name="text">
     <string>Lopeta</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButtonTrans">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>180</y>
+     <width>151</width>
+     <height>29</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Show transactions</string>
    </property>
   </widget>
  </widget>

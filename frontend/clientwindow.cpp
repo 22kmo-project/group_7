@@ -1,4 +1,5 @@
 #include "clientwindow.h"
+#include "transactionwindow.h"
 #include "ui_clientwindow.h"
 #include <myurl.h>
 #include <QDebug>
@@ -34,13 +35,12 @@ void ClientWindow::on_button_nayta_saldo_clicked()//ESSI
 
 }
 
-
-void ClientWindow::on_button_nayta_tilitapahtumat_clicked()
+void ClientWindow::on_pushButtonTrans_clicked()
 {
-
+    TransactionWindow transWindow;
+    transWindow.setModal(true);
+    transWindow.exec();
 }
-
-
 void ClientWindow::on_button_nosta_rahaa_clicked()
 {
     objectDrawWindow = new DrawWindow(webToken,myCardId);
@@ -58,4 +58,7 @@ void ClientWindow::on_button_lopeta_clicked()
     qApp->quit();
     QProcess::startDetached(qApp->arguments()[0], qApp->arguments());
 }
+
+
+
 

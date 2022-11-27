@@ -7,6 +7,7 @@
 #include <QJsonDocument>
 #include "drawwindow.h"
 #include "balancewindow.h"
+#include "transactionwindow.h"
 
 namespace Ui {
 class ClientWindow;
@@ -25,7 +26,7 @@ public:
 
 private slots:
     void on_button_nayta_saldo_clicked();
-    void on_button_nayta_tilitapahtumat_clicked();
+    void on_pushButtonTrans_clicked();
     void on_button_nosta_rahaa_clicked();
     void on_button_siirra_rahaa_clicked();
 
@@ -38,6 +39,7 @@ private:
     DrawWindow *objectDrawWindow;
     QByteArray response_data;
     BalanceWindow *objectBalanceWindow;
+    TransactionWindow *objectTransactionWindow;
 };
 
 #endif // CLIENTWINDOW_H
