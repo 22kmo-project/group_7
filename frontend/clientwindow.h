@@ -20,7 +20,7 @@ public:
     explicit ClientWindow(QString id_card, QWidget *parent = nullptr);
     ~ClientWindow();
 
-    //const QString &getWebToken() const;
+    const QString &getWebToken() const;
     void setWebToken(const QByteArray &newWebToken);
 
 private slots:

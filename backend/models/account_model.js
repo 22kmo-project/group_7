@@ -29,12 +29,12 @@ const account = {
   },
 
   getAllBalances: function(callback){
-    return db.query('select concat(fname," ",lname) as "client_name", balance from client inner join account on client.id_client=account.id_client inner join card on card.id_account=account.id_account',
+    return db.query('select client.id_client, account.id_account, concat(fname," ",lname) as "client_name", balance from client inner join account on client.id_client=account.id_client inner join card on card.id_account=account.id_account',
     callback);
   },
   
   getOneBalance: function(id,callback){
-    return db.query('select concat(fname," ",lname) as "client_name", balance from client inner join account on client.id_client=account.id_client inner join card on card.id_account=account.id_account where card.id_card=?',[id],
+    return db.query('select client.id_client, account.id_account, concat(fname," ",lname) as "client_name", balance from client inner join account on client.id_client=account.id_client inner join card on card.id_account=account.id_account where card.id_card=?',[id],
     callback);
   }
 };
