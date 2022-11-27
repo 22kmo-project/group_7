@@ -6,6 +6,7 @@
 #include <QNetworkAccessManager>
 #include <QJsonDocument>
 #include "drawwindow.h"
+#include "balancewindow.h"
 
 namespace Ui {
 class ClientWindow;
@@ -36,6 +37,7 @@ private:
     QString myCardId;
     DrawWindow *objectDrawWindow;
     QByteArray response_data;
+    BalanceWindow *objectBalanceWindow;
 };
 
 #endif // CLIENTWINDOW_H

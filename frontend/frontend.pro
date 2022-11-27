@@ -10,6 +10,7 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    balancewindow.cpp \
     clientwindow.cpp \
     drawwindow.cpp \
     main.cpp \
@@ -17,12 +18,14 @@ SOURCES += \
     myurl.cpp
 
 HEADERS += \
+    balancewindow.h \
     clientwindow.h \
     drawwindow.h \
     mainwindow.h \
     myurl.h
 
 FORMS += \
+    balancewindow.ui \
     clientwindow.ui \
     drawwindow.ui \
     mainwindow.ui
