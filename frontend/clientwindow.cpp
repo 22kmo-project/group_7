@@ -1,5 +1,6 @@
 #include "clientwindow.h"
 #include "transactionwindow.h"
+#include "depositwindow.h"
 #include "ui_clientwindow.h"
 #include <myurl.h>
 #include <QDebug>
@@ -18,10 +19,17 @@ ClientWindow::ClientWindow(QString id_card, QWidget *parent) :
 ClientWindow::~ClientWindow()
 {
     delete ui;
+
     delete objectDrawWindow;
     objectDrawWindow=nullptr;
+
+
+    delete objectDepositWindow;
+    objectDepositWindow=nullptr;
+
     delete objectBalanceWindow;
     objectBalanceWindow=nullptr;
+
 }
 
 void ClientWindow::setWebToken(const QByteArray &newWebToken)
@@ -42,24 +50,24 @@ void ClientWindow::on_pushButtonTrans_clicked()
     transWindow.setModal(true);
     transWindow.exec();
 }
-void ClientWindow::on_button_nosta_rahaa_clicked()
+
+
+void ClientWindow::on_button_withdraw_clicked()//Justiina
 {
     objectDrawWindow = new DrawWindow(webToken,myCardId);
     objectDrawWindow->show();
 }
 
 
-void ClientWindow::on_button_siirra_rahaa_clicked()
+void ClientWindow::on_button_deposit_clicked()//Justiina
 {
-
+    objectDepositWindow = new DepositWindow(webToken,myCardId);
+    objectDepositWindow->show();
 }
 
-void ClientWindow::on_button_lopeta_clicked()
+void ClientWindow::on_button_exit_clicked()
 {
     qApp->quit();
     QProcess::startDetached(qApp->arguments()[0], qApp->arguments());
 }
-
-
-
 

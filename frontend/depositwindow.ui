@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>DrawWindow</class>
- <widget class="QDialog" name="DrawWindow">
+ <class>DepositWindow</class>
+ <widget class="QDialog" name="DepositWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -13,28 +13,10 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QLabel" name="label_1">
-   <property name="geometry">
-    <rect>
-     <x>110</x>
-     <y>60</y>
-     <width>191</width>
-     <height>61</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>20</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string>Asiakas:</string>
-   </property>
-  </widget>
   <widget class="QPushButton" name="button_20e">
    <property name="geometry">
     <rect>
-     <x>100</x>
+     <x>60</x>
      <y>410</y>
      <width>121</width>
      <height>61</height>
@@ -49,101 +31,11 @@
     <string>20 €</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="button_40e">
+  <widget class="QPushButton" name="button_ok">
    <property name="geometry">
     <rect>
-     <x>240</x>
+     <x>590</x>
      <y>410</y>
-     <width>121</width>
-     <height>61</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>15</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string>40 €</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="button_60e">
-   <property name="geometry">
-    <rect>
-     <x>380</x>
-     <y>410</y>
-     <width>121</width>
-     <height>61</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>15</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string>60 €</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="button_100e">
-   <property name="geometry">
-    <rect>
-     <x>100</x>
-     <y>490</y>
-     <width>121</width>
-     <height>61</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>15</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string>100 €</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="button_200e">
-   <property name="geometry">
-    <rect>
-     <x>240</x>
-     <y>490</y>
-     <width>121</width>
-     <height>61</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>15</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string>200 €</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="button_500e">
-   <property name="geometry">
-    <rect>
-     <x>380</x>
-     <y>490</y>
-     <width>121</width>
-     <height>61</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>15</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string>500 €</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="button_exit">
-   <property name="geometry">
-    <rect>
-     <x>520</x>
-     <y>490</y>
      <width>121</width>
      <height>61</height>
     </rect>
@@ -154,47 +46,11 @@
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">background: red;
+    <string notr="true">background: green;
 color: black;</string>
    </property>
    <property name="text">
-    <string>Sulje</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_2">
-   <property name="geometry">
-    <rect>
-     <x>110</x>
-     <y>110</y>
-     <width>191</width>
-     <height>61</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>20</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string>Tilin saldo:</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_info">
-   <property name="geometry">
-    <rect>
-     <x>110</x>
-     <y>190</y>
-     <width>571</width>
-     <height>111</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>15</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string/>
+    <string>OK</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_client_name">
@@ -215,6 +71,60 @@ color: black;</string>
     <string>Text</string>
    </property>
   </widget>
+  <widget class="QPushButton" name="button_40e">
+   <property name="geometry">
+    <rect>
+     <x>190</x>
+     <y>410</y>
+     <width>121</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>15</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>40 €</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_3">
+   <property name="geometry">
+    <rect>
+     <x>110</x>
+     <y>330</y>
+     <width>571</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>20</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Valitse talletettava rahasumma:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_1">
+   <property name="geometry">
+    <rect>
+     <x>110</x>
+     <y>60</y>
+     <width>191</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>20</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Asiakas:</string>
+   </property>
+  </widget>
   <widget class="QLabel" name="label_balance">
    <property name="geometry">
     <rect>
@@ -233,12 +143,12 @@ color: black;</string>
     <string>Text</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_3">
+  <widget class="QLabel" name="label_2">
    <property name="geometry">
     <rect>
      <x>110</x>
-     <y>320</y>
-     <width>571</width>
+     <y>110</y>
+     <width>191</width>
      <height>61</height>
     </rect>
    </property>
@@ -248,13 +158,13 @@ color: black;</string>
     </font>
    </property>
    <property name="text">
-    <string>Valitse nostettava rahasumma:</string>
+    <string>Tilin saldo:</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="button_ok">
+  <widget class="QPushButton" name="button_100e">
    <property name="geometry">
     <rect>
-     <x>520</x>
+     <x>450</x>
      <y>410</y>
      <width>121</width>
      <height>61</height>
@@ -265,12 +175,138 @@ color: black;</string>
      <pointsize>15</pointsize>
     </font>
    </property>
+   <property name="text">
+    <string>100 €</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="button_200e">
+   <property name="geometry">
+    <rect>
+     <x>60</x>
+     <y>480</y>
+     <width>121</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>15</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>200 €</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="button_500e">
+   <property name="geometry">
+    <rect>
+     <x>450</x>
+     <y>480</y>
+     <width>121</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>15</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>500 €</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="button_60e">
+   <property name="geometry">
+    <rect>
+     <x>320</x>
+     <y>410</y>
+     <width>121</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>15</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>60 €</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_info">
+   <property name="geometry">
+    <rect>
+     <x>110</x>
+     <y>190</y>
+     <width>571</width>
+     <height>111</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>15</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="button_exit">
+   <property name="geometry">
+    <rect>
+     <x>590</x>
+     <y>480</y>
+     <width>121</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>15</pointsize>
+    </font>
+   </property>
    <property name="styleSheet">
-    <string notr="true">background: green;
+    <string notr="true">background: red;
 color: black;</string>
    </property>
    <property name="text">
-    <string>OK</string>
+    <string>Sulje</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="button_300e">
+   <property name="geometry">
+    <rect>
+     <x>190</x>
+     <y>480</y>
+     <width>121</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>15</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>300 €</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="button_400e">
+   <property name="geometry">
+    <rect>
+     <x>320</x>
+     <y>480</y>
+     <width>121</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>15</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>400 €</string>
    </property>
   </widget>
  </widget>
