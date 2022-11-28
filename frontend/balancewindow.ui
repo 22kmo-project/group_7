@@ -22,6 +22,15 @@
      <height>61</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <pointsize>15</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background: red;
+color: black;</string>
+   </property>
    <property name="text">
     <string>Sulje</string>
    </property>
@@ -37,8 +46,12 @@
    </property>
    <property name="font">
     <font>
-     <pointsize>14</pointsize>
+     <pointsize>12</pointsize>
     </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background: white;
+color: black;</string>
    </property>
    <property name="text">
     <string>TextLabel</string>

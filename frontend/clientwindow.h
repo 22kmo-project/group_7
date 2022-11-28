@@ -32,6 +32,8 @@ private slots:
     void on_button_deposit_clicked();
     void on_button_exit_clicked();
 
+    void on_button_transfer_clicked();
+
 private:
     Ui::ClientWindow *ui;
     QByteArray webToken;
