@@ -23,8 +23,13 @@ ClientWindow::~ClientWindow()
     delete objectDrawWindow;
     objectDrawWindow=nullptr;
 
+
     delete objectDepositWindow;
     objectDepositWindow=nullptr;
+
+    delete objectBalanceWindow;
+    objectBalanceWindow=nullptr;
+
 }
 
 void ClientWindow::setWebToken(const QByteArray &newWebToken)
@@ -35,7 +40,6 @@ void ClientWindow::setWebToken(const QByteArray &newWebToken)
 void ClientWindow::on_button_nayta_saldo_clicked()//ESSI
 {
     objectBalanceWindow = new BalanceWindow(webToken,myCardId);
-    objectBalanceWindow->setWebToken("Bearer "+response_data);
     objectBalanceWindow->show();
 
 }
