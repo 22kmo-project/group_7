@@ -71,3 +71,33 @@ void ClientWindow::on_button_exit_clicked()
     QProcess::startDetached(qApp->arguments()[0], qApp->arguments());
 }
 
+
+void ClientWindow::on_button_transfer_clicked()
+{
+    /*
+    Tällä proseduurilla tekee siirron ok sql workbenchissa
+
+DELIMITER //
+CREATE PROCEDURE debit_transfer1(IN account_id1 INT, IN account_id2 INT, IN amount DOUBLE )
+BEGIN
+  DECLARE test1, test2, id_card1, id_card2 INT DEFAULT 0;
+  START TRANSACTION;
+  UPDATE account SET balance=balance-amount WHERE id_account=account_id1 AND balance>=amount;
+  SET test1=ROW_COUNT();
+  UPDATE account SET balance=balance+amount WHERE id_account=account_id2;
+  SET test2=ROW_COUNT();
+    IF (test1 > 0 AND test2 >0) THEN COMMIT;
+        set id_card1=(select card.id_card from card where card.id_account=account_id1);
+        set id_card2=(select card.id_card from card where card.id_account=account_id2);
+        INSERT INTO transaction(transaction.id_account, transaction.id_card, transaction.transaction, transaction.transaction_date, transaction.balance) VALUES(account_id1, id_card1,'rahan siirto', NOW(), amount*-1);
+        INSERT INTO transaction(transaction.id_account, transaction.id_card, transaction.transaction, transaction.transaction_date, transaction.balance) VALUES(account_id2, id_card2,'vastaanotettu siirto',NOW(), amount);
+    ELSE
+      ROLLBACK;
+  END IF;
+END //
+DELIMITER ;
+
+    call debit_transfers(1,2,3000);
+    */
+}
+
