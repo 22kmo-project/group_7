@@ -127,7 +127,7 @@ void DrawWindow::on_button_ok_clicked()
     jsonObjPost.insert("id_account",myAccountId);
     jsonObjPost.insert("id_card",myCardId);
     jsonObjPost.insert("transaction_date",QDate::currentDate().toString(Qt::ISODate));
-    jsonObjPost.insert("transaction","nosto");
+    jsonObjPost.insert("transaction","Nosto");
     jsonObjPost.insert("amount",amount);
 
     QString site_urlPost=MyURL::getBaseUrl()+"/transaction/";

@@ -26,7 +26,7 @@ void MainWindow::on_btn_ok_clicked()
         ui->lineEdit->clear();
         ui->label_info->setText("Anna pin-koodi ja paina ok");
         break;
-    case 2:   
+    case 2:
         pin=ui->lineEdit->text();
         ui->label_info->setText("Varmista kirjautuminen painamalla ok");
         break;
@@ -150,5 +150,3 @@ void MainWindow::on_btn_0_clicked()
 {
     ui->lineEdit->setText(ui->lineEdit->text()+ "0");
 }
-
-
