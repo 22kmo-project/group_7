@@ -78,7 +78,7 @@ void ClientWindow::on_button_transfer_clicked()
     Tällä proseduurilla tekee siirron ok sql workbenchissa
 
 DELIMITER //
-CREATE PROCEDURE debit_transfer1(IN account_id1 INT, IN account_id2 INT, IN amount DOUBLE )
+CREATE PROCEDURE debit_transfers(IN account_id1 INT, IN account_id2 INT, IN amount DOUBLE )
 BEGIN
   DECLARE test1, test2, id_card1, id_card2 INT DEFAULT 0;
   START TRANSACTION;

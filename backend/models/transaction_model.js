@@ -16,6 +16,12 @@ const transaction = {
       callback
     );
   },
+
+  transferAmount: function(add_data, callback){
+    return db.query(
+      'call debit_transfer2(?,?,?)',[add_data.id_account1, add_data.id_account2, add_data.amount], callback
+    );
+  },
   
   delete: function(id, callback) {
     return db.query('delete from transaction where id_transaction=?', [id], callback);
