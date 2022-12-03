@@ -7,6 +7,8 @@
 #include <QNetworkAccessManager>
 #include <QJsonDocument>
 #include <myurl.h>
+#include <QStyle>
+#include <QDesktopWidget>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }

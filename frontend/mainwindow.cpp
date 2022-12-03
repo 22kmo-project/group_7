@@ -20,17 +20,13 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_btn_ok_clicked()
 {
-    switch(ok_count) {
-    case 1:
+    if(ok_count == 1) {
         id_card=ui->lineEdit->text();
         ui->lineEdit->clear();
         ui->label_info->setText("Anna pin-koodi ja paina ok");
-        break;
-    case 2:   
+        ok_count++;
+    } else {
         pin=ui->lineEdit->text();
-        ui->label_info->setText("Varmista kirjautuminen painamalla ok");
-        break;
-    case 3:
         QJsonObject jsonObj;
         jsonObj.insert("id_card", id_card);
         jsonObj.insert("pin", pin);
@@ -43,9 +39,7 @@ void MainWindow::on_btn_ok_clicked()
         connect(loginManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(loginSlot(QNetworkReply*)));
 
         reply = loginManager->post(request, QJsonDocument(jsonObj).toJson());
-        break;
     }
-    ok_count++;
 }
 
 void MainWindow::loginSlot(QNetworkReply *reply)
@@ -150,5 +144,3 @@ void MainWindow::on_btn_0_clicked()
 {
     ui->lineEdit->setText(ui->lineEdit->text()+ "0");
 }
-
-

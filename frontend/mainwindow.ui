@@ -30,9 +30,9 @@
    <widget class="QLabel" name="label_info">
     <property name="geometry">
      <rect>
-      <x>220</x>
+      <x>190</x>
       <y>90</y>
-      <width>331</width>
+      <width>361</width>
       <height>111</height>
      </rect>
     </property>
@@ -320,7 +320,7 @@ color: black</string>
    <widget class="QLineEdit" name="lineEdit">
     <property name="geometry">
      <rect>
-      <x>330</x>
+      <x>270</x>
       <y>220</y>
       <width>113</width>
       <height>24</height>
