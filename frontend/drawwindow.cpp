@@ -2,13 +2,21 @@
 #include "ui_drawwindow.h"
 #include <myurl.h>
 #include <QDebug>
+#include <QTimer>
+#include <windows.h>
 
 DrawWindow::DrawWindow(QByteArray wt,QString id_card, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::DrawWindow)
 {
     ui->setupUi(this);
-    //QWidget::showMaximized();//Näytetään ikkuna kokonäytöllä
+    this->setWindowTitle("Nosta varoja");
+
+    timer = new QTimer(this);
+    connect(timer,SIGNAL(timeout()),
+            this,SLOT(myfunction()));
+    timer->start(1000);
+
     webToken=wt;
     myCardId=id_card;
 
@@ -48,6 +56,21 @@ void DrawWindow::drawSlot(QNetworkReply *reply)
     reply->deleteLater();
     drawManager->deleteLater();
 }
+
+/*void DrawWindow::myFunction()
+{
+    int i=30;
+    while(i<=30)
+    {
+        qDebug() << "" <<i;
+        --i;
+        Sleep(1000);
+        system("cls");
+
+    if(i==0)
+    break;
+    }
+}*/
 
 void DrawWindow::checkMoney(double bal, double am)
 {

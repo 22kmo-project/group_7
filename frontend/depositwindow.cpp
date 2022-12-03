@@ -2,12 +2,20 @@
 #include "ui_depositwindow.h"
 #include <myurl.h>
 #include <QDebug>
+#include <windows.h>
 
 DepositWindow::DepositWindow(QByteArray wt, QString id_card, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::DepositWindow)
 {
     ui->setupUi(this);
+    this->setWindowTitle("Talleta varoja");
+
+    timer = new QTimer(this);
+    connect(timer,SIGNAL(timeout()),
+            this,SLOT(myfunction()));
+    timer->start(1000);
+
     webToken=wt;
     myCardId=id_card;
     QString site_url=MyURL::getBaseUrl()+"/accountclient/"+myCardId;
@@ -65,6 +73,22 @@ void DepositWindow::postTransactionSlot(QNetworkReply *replyPost)
     postManager->deleteLater();
     this->close();
 }
+
+/*void DepositWindow::myFunction()
+{
+    int i=30;
+    while(i<=30)
+    {
+        qDebug() << "" <<i;
+        --i;
+        Sleep(1000);
+        system("cls");
+
+    if(i==0)
+    break;    //qApp->quit();
+        //QProcess::startDetached(qApp->arguments()[0], qApp->arguments());
+    }
+}*/
 
 
 

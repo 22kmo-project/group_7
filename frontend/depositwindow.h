@@ -23,6 +23,7 @@ private slots:
     void depositSlot (QNetworkReply *reply);
     void updateBalanceSlot (QNetworkReply *reply);
     void postTransactionSlot (QNetworkReply *reply);
+    //void myFunction();
 
     void on_button_ok_clicked();
 
@@ -50,6 +51,7 @@ private:
     QString myCardId;
     QString myClientId;
     QString myAccountId;
+    QTimer *timer;
 
     QNetworkReply *reply;
     QNetworkReply *replyPost;

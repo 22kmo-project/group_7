@@ -5,12 +5,15 @@
 #include <myurl.h>
 #include <QDebug>
 
+
+
 ClientWindow::ClientWindow(QString id_card, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::ClientWindow)
 {
     ui->setupUi(this);
-    //QWidget::showMaximized();//Näytetään ikkuna kokonäytöllä
+    this->setWindowTitle("Etusivu");
+
     ui->label_id_card->setText(id_card);
     myCardId=id_card;
 
@@ -22,7 +25,6 @@ ClientWindow::~ClientWindow()
 
     delete objectDrawWindow;
     objectDrawWindow=nullptr;
-
 
     delete objectDepositWindow;
     objectDepositWindow=nullptr;
@@ -39,33 +41,39 @@ void ClientWindow::setWebToken(const QByteArray &newWebToken)
 
 void ClientWindow::on_button_nayta_saldo_clicked()//ESSI
 {
-    objectBalanceWindow = new BalanceWindow(webToken,myCardId);
-    objectBalanceWindow->show();
+
+    BalanceWindow ballanceWindow(webToken,myCardId);
+    ballanceWindow.setModal(true);
+    ballanceWindow.exec();
 
 }
 
-void ClientWindow::on_pushButtonTrans_clicked()
+void ClientWindow::on_pushButtonTrans_clicked() //JENNI-MARIA
 {
-    TransactionWindow transWindow;
+    TransactionWindow transWindow(webToken,myCardId);
     transWindow.setModal(true);
     transWindow.exec();
+
 }
 
 
 void ClientWindow::on_button_withdraw_clicked()//Justiina
 {
-    objectDrawWindow = new DrawWindow(webToken,myCardId);
-    objectDrawWindow->show();
+
+    DrawWindow drawwWindow(webToken,myCardId);
+    drawwWindow.setModal(true);
+    drawwWindow.exec();
 }
 
 
 void ClientWindow::on_button_deposit_clicked()//Justiina
 {
-    objectDepositWindow = new DepositWindow(webToken,myCardId);
-    objectDepositWindow->show();
+    DepositWindow deppositWindow(webToken,myCardId);
+    deppositWindow.setModal(true);
+    deppositWindow.exec();
 }
 
-void ClientWindow::on_button_exit_clicked()
+void ClientWindow::on_button_exit_clicked() //TÄMÄN PAINAMINEN SEKOITTAA IKKUNAN TOIMINNAN
 {
     qApp->quit();
     QProcess::startDetached(qApp->arguments()[0], qApp->arguments());
@@ -100,4 +108,3 @@ DELIMITER ;
     call debit_transfers(1,2,3000);
     */
 }
-

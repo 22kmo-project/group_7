@@ -34,6 +34,7 @@ private slots:
     void on_button_ok_clicked();
     void on_button_exit_clicked();
     void checkMoney(double bal, double am);
+    //void myFunction();
 
 private:
     Ui::DrawWindow *ui;
@@ -41,6 +42,7 @@ private:
     QString myCardId;
     QString myClientId;
     QString myAccountId;
+    QTimer *timer;
 
     QNetworkReply *reply;
     QNetworkReply *replyPost;

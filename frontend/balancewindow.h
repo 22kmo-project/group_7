@@ -25,6 +25,7 @@ private slots:
     void on_Button_close_clicked();
     void balanceSlot (QNetworkReply *reply);
     void clientSlot (QNetworkReply *reply);
+    //void myFunction();
 
 private:
     Ui::BalanceWindow *ui;
@@ -38,6 +39,7 @@ private:
     QString balance;
     double balanceValue;
     QString myClientId;
+    QTimer *timer;
 };
 
 #endif // BALANCEWINDOW_H

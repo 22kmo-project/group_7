@@ -9,6 +9,7 @@ MainWindow::MainWindow(QWidget *parent)
     //QWidget::showMaximized(); //Näytetään ikkuna kokonäytöllä
     ui->label_info->setText("Anna kortin numero ja paina ok");
     ok_count=1;
+    this->setWindowTitle("Pankkiautomaatti");
 }
 
 MainWindow::~MainWindow()
