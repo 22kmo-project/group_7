@@ -23,6 +23,7 @@ void MainWindow::on_btn_ok_clicked()
     if(ok_count == 1) {
         id_card=ui->lineEdit->text();
         ui->lineEdit->clear();
+        ui->lineEdit->setEchoMode(QLineEdit::Password);
         ui->label_info->setText("Anna pin-koodi ja paina ok");
         ok_count++;
     } else {
