@@ -17,9 +17,10 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     myurl.cpp \
+    timer.cpp \
     transactionwindow.cpp \
     transferwindow.cpp
-
+    
 HEADERS += \
     balancewindow.h \
     clientwindow.h \
@@ -27,9 +28,10 @@ HEADERS += \
     drawwindow.h \
     mainwindow.h \
     myurl.h \
+    timer.h \
     transactionwindow.h \
     transferwindow.h
-
+    
 FORMS += \
     balancewindow.ui \
     clientwindow.ui \
