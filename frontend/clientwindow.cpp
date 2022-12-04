@@ -13,9 +13,13 @@ ClientWindow::ClientWindow(QString id_card, QWidget *parent) :
 {
     ui->setupUi(this);
     this->setWindowTitle("Etusivu");
-
+    s=0;
+    pQTimer = new QTimer;
     ui->label_id_card->setText(id_card);
     myCardId=id_card;
+
+    connect(pQTimer,SIGNAL(timeout()),this,SLOT(handleTimeout()));
+    pQTimer->start(1000);
 
 }
 
@@ -41,7 +45,7 @@ void ClientWindow::setWebToken(const QByteArray &newWebToken)
 
 void ClientWindow::on_button_nayta_saldo_clicked()//ESSI
 {
-
+    pQTimer->stop();
     BalanceWindow ballanceWindow(webToken,myCardId);
     ballanceWindow.setModal(true);
     ballanceWindow.exec();
@@ -50,6 +54,7 @@ void ClientWindow::on_button_nayta_saldo_clicked()//ESSI
 
 void ClientWindow::on_pushButtonTrans_clicked() //JENNI-MARIA
 {
+    pQTimer->stop();
     TransactionWindow transWindow(webToken,myCardId);
     transWindow.setModal(true);
     transWindow.exec();
@@ -59,7 +64,7 @@ void ClientWindow::on_pushButtonTrans_clicked() //JENNI-MARIA
 
 void ClientWindow::on_button_withdraw_clicked()//Justiina
 {
-
+    pQTimer->stop();
     DrawWindow drawwWindow(webToken,myCardId);
     drawwWindow.setModal(true);
     drawwWindow.exec();
@@ -68,6 +73,7 @@ void ClientWindow::on_button_withdraw_clicked()//Justiina
 
 void ClientWindow::on_button_deposit_clicked()//Justiina
 {
+    pQTimer->stop();
     DepositWindow deppositWindow(webToken,myCardId);
     deppositWindow.setModal(true);
     deppositWindow.exec();
@@ -75,13 +81,33 @@ void ClientWindow::on_button_deposit_clicked()//Justiina
 
 void ClientWindow::on_button_exit_clicked() //TÄMÄN PAINAMINEN SEKOITTAA IKKUNAN TOIMINNAN
 {
+    pQTimer->stop();
+    //qDebug()<<s;
+    //close();
+    QApplication::closeAllWindows();
     qApp->quit();
     QProcess::startDetached(qApp->arguments()[0], qApp->arguments());
+}
+
+void ClientWindow::handleTimeout()
+{
+    s++;
+    qDebug()<<s;
+    if (s==10)
+    {
+        pQTimer->stop();
+        //close();
+        QApplication::closeAllWindows();
+        qApp->quit();
+        QProcess::startDetached(qApp->arguments()[0], qApp->arguments());
+    }
+
 }
 
 
 void ClientWindow::on_button_transfer_clicked()
 {
+    pQTimer->stop();
     /*
     Tällä proseduurilla tekee siirron ok sql workbenchissa
 

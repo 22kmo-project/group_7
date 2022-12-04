@@ -20,7 +20,7 @@ BalanceWindow::BalanceWindow(QByteArray wt, QString id_card, QWidget *parent) :
     webToken=wt;
     myCardId=id_card;
 
-    QString site_url=MyURL::getBaseUrl()+"/clienttransaction/"+myCardId;
+    QString site_url=MyURL::getBaseUrl()+"/clientfivetransaction/"+myCardId;
     QNetworkRequest request((site_url));
     //WEBTOKEN ALKU
     request.setRawHeader(QByteArray("Authorization"),(webToken));

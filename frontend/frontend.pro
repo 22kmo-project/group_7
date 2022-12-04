@@ -17,6 +17,7 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     myurl.cpp \
+    timer.cpp \
     transactionwindow.cpp
 
 HEADERS += \
@@ -26,6 +27,7 @@ HEADERS += \
     drawwindow.h \
     mainwindow.h \
     myurl.h \
+    timer.h \
     transactionwindow.h
 
 FORMS += \
