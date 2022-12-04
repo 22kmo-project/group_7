@@ -24,25 +24,15 @@ private slots:
     void updateBalanceSlot (QNetworkReply *reply);
     void postTransactionSlot (QNetworkReply *reply);
     //void myFunction();
-
     void on_button_ok_clicked();
-
     void on_button_exit_clicked();
-
     void on_button_20e_clicked();
-
     void on_button_40e_clicked();
-
     void on_button_60e_clicked();
-
     void on_button_100e_clicked();
-
     void on_button_200e_clicked();
-
     void on_button_300e_clicked();
-
     void on_button_400e_clicked();
-
     void on_button_500e_clicked();
 
 private:

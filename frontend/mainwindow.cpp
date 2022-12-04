@@ -82,19 +82,16 @@ void MainWindow::loginSlot(QNetworkReply *reply)
 
 }
 
-
 void MainWindow::on_btn_clear_clicked()
 {
     qApp->quit();
     QProcess::startDetached(qApp->arguments()[0], qApp->arguments());
 }
 
-
 void MainWindow::on_btn_close_clicked()
 {
     QApplication::closeAllWindows();
 }
-
 
 void MainWindow::on_btn_1_clicked()
 {

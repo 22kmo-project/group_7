@@ -57,21 +57,6 @@ void DrawWindow::drawSlot(QNetworkReply *reply)
     drawManager->deleteLater();
 }
 
-/*void DrawWindow::myFunction()
-{
-    int i=30;
-    while(i<=30)
-    {
-        qDebug() << "" <<i;
-        --i;
-        Sleep(1000);
-        system("cls");
-
-    if(i==0)
-    break;
-    }
-}*/
-
 void DrawWindow::checkMoney(double bal, double am)
 {
     if(bal<am){
@@ -167,7 +152,6 @@ void DrawWindow::on_button_ok_clicked()
     replyPost=postManager->post(requestPost, QJsonDocument(jsonObjPost).toJson());
 
 }
-
 
 void DrawWindow::on_button_exit_clicked()
 {

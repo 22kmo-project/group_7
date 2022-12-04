@@ -17,7 +17,8 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     myurl.cpp \
-    transactionwindow.cpp
+    transactionwindow.cpp \
+    transferwindow.cpp
 
 HEADERS += \
     balancewindow.h \
@@ -26,7 +27,8 @@ HEADERS += \
     drawwindow.h \
     mainwindow.h \
     myurl.h \
-    transactionwindow.h
+    transactionwindow.h \
+    transferwindow.h
 
 FORMS += \
     balancewindow.ui \
@@ -34,7 +36,8 @@ FORMS += \
     depositwindow.ui \
     drawwindow.ui \
     mainwindow.ui \
-    transactionwindow.ui
+    transactionwindow.ui \
+    transferwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
