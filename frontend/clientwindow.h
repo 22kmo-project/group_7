@@ -9,7 +9,7 @@
 #include "balancewindow.h"
 #include "transactionwindow.h"
 #include "depositwindow.h"
-//#include <QTimer>
+#include <QTimer>
 
 namespace Ui {
 class ClientWindow;
@@ -32,7 +32,7 @@ private slots:
     void on_button_withdraw_clicked();
     void on_button_deposit_clicked();
     void on_button_exit_clicked();
-    //void myFunction();
+    void handleTimeout();
 
     void on_button_transfer_clicked();
 
@@ -45,7 +45,8 @@ private:
     BalanceWindow *objectBalanceWindow;
     TransactionWindow *objectTransactionWindow;
     DepositWindow *objectDepositWindow;
-    //QTimer *timer;
+    QTimer * pQTimer;
+    short s;
 };
 
 #endif // CLIENTWINDOW_H

@@ -6,10 +6,14 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    //QWidget::showMaximized(); //Näytetään ikkuna kokonäytöllä
-    ui->label_info->setText("Anna kortin numero ja paina ok");
-    ok_count=1;
     this->setWindowTitle("Pankkiautomaatti");
+    //QWidget::showMaximized(); //Näytetään ikkuna kokonäytöllä
+    //ok_count=0;
+    //if(ok_count ==0){
+        ui->label_info->setText("Anna kortin numero ja paina ok");
+        ok_count=1;
+    //}
+
 }
 
 MainWindow::~MainWindow()
@@ -21,7 +25,8 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_btn_ok_clicked()
 {
-    if(ok_count == 1) {
+    //qDebug()<<ok_count;
+     if(ok_count == 1) {
         id_card=ui->lineEdit->text();
         ui->lineEdit->clear();
         ui->lineEdit->setEchoMode(QLineEdit::Password);
@@ -33,6 +38,8 @@ void MainWindow::on_btn_ok_clicked()
         jsonObj.insert("id_card", id_card);
         jsonObj.insert("pin", pin);
 
+        ui->lineEdit->clear();
+
         QString site_url=MyURL::getBaseUrl()+"/login";
         QNetworkRequest request((site_url));
         request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
@@ -41,7 +48,7 @@ void MainWindow::on_btn_ok_clicked()
         connect(loginManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(loginSlot(QNetworkReply*)));
 
         reply = loginManager->post(request, QJsonDocument(jsonObj).toJson());
-    }
+            }
 }
 
 void MainWindow::loginSlot(QNetworkReply *reply)
@@ -73,12 +80,14 @@ void MainWindow::loginSlot(QNetworkReply *reply)
             objectClientWindow = new ClientWindow(id_card);
             objectClientWindow->setWebToken("Bearer "+response_data);
             objectClientWindow->show();
+            //ok_count=0;
         }
     }
     }
 
     reply->deleteLater();
     loginManager->deleteLater();
+
 
 }
 
@@ -93,6 +102,7 @@ void MainWindow::on_btn_clear_clicked()
 void MainWindow::on_btn_close_clicked()
 {
     QApplication::closeAllWindows();
+    qApp->quit();
 }
 
 
