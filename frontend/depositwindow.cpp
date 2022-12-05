@@ -11,10 +11,10 @@ DepositWindow::DepositWindow(QByteArray wt, QString id_card, QWidget *parent) :
     ui->setupUi(this);
     this->setWindowTitle("Talleta varoja");
 
-    timer = new QTimer(this);
-    connect(timer,SIGNAL(timeout()),
-            this,SLOT(myfunction()));
-    timer->start(1000);
+    s=0;
+    depositTimer = new QTimer;
+    connect(depositTimer,SIGNAL(timeout()),this,SLOT(handleTimeout()));
+    depositTimer->start(1000);
 
     webToken=wt;
     myCardId=id_card;
@@ -76,6 +76,7 @@ void DepositWindow::postTransactionSlot(QNetworkReply *replyPost)
 
 void DepositWindow::on_button_ok_clicked()
 {
+    depositTimer->stop();
     //Update account table
     amountValue=QString(amount).toDouble();
     balanceValue=balanceValue+amountValue;
@@ -121,63 +122,100 @@ void DepositWindow::on_button_ok_clicked()
 
 void DepositWindow::on_button_20e_clicked()
 {
+    depositTimer->stop();
+    s=0;
     ui->label_info->setText("Varmista talletus painamalla OK tai peruuta painamalla Sulje.");
     amount="20";
+    depositTimer->start(1000);
 }
 
 
 void DepositWindow::on_button_40e_clicked()
 {
+    depositTimer->stop();
+    s=0;
     ui->label_info->setText("Varmista talletus painamalla OK tai peruuta painamalla Sulje.");
     amount="40";
+    depositTimer->start(1000);
 }
 
 
 void DepositWindow::on_button_60e_clicked()
 {
+    depositTimer->stop();
+    s=0;
     ui->label_info->setText("Varmista talletus painamalla OK tai peruuta painamalla Sulje.");
     amount="60";
+    depositTimer->start(1000);
 }
 
 
 void DepositWindow::on_button_100e_clicked()
 {
+    depositTimer->stop();
+    s=0;
     ui->label_info->setText("Varmista talletus painamalla OK tai peruuta painamalla Sulje.");
     amount="100";
+    depositTimer->start(1000);
 }
 
 
 void DepositWindow::on_button_200e_clicked()
 {
+    depositTimer->stop();
+    s=0;
     ui->label_info->setText("Varmista talletus painamalla OK tai peruuta painamalla Sulje.");
     amount="200";
+    depositTimer->start(1000);
 }
 
 
 void DepositWindow::on_button_300e_clicked()
 {
+    depositTimer->stop();
+    s=0;
     ui->label_info->setText("Varmista talletus painamalla OK tai peruuta painamalla Sulje.");
     amount="300";
+    depositTimer->start(1000);
 }
 
 
 void DepositWindow::on_button_400e_clicked()
 {
+    depositTimer->stop();
+    s=0;
     ui->label_info->setText("Varmista talletus painamalla OK tai peruuta painamalla Sulje.");
     amount="400";
+    depositTimer->start(1000);
 }
 
 
 void DepositWindow::on_button_500e_clicked()
 {
+    depositTimer->stop();
+    s=0;
     ui->label_info->setText("Varmista talletus painamalla OK tai peruuta painamalla Sulje.");
     amount="500";
+    depositTimer->start(1000);
+}
+
+void DepositWindow::handleTimeout()
+{
+    s++;
+    qDebug()<<s;
+    if (s==10)
+    {
+        depositTimer->stop();
+         close();
+    }
+
 }
 
 
 
 void DepositWindow::on_button_exit_clicked()
 {
+    depositTimer->stop();
     close();
 }
 

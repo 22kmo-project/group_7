@@ -50,7 +50,11 @@ void ClientWindow::on_button_nayta_saldo_clicked()//ESSI
     pQTimer->stop();
     BalanceWindow balanceWindow(webToken,myCardId);
     balanceWindow.setModal(true);
-    balanceWindow.exec();
+    int a=balanceWindow.exec();
+    if(a==0){
+        s=0;
+        pQTimer->start(1000);
+    }
 }
 
 void ClientWindow::on_pushButtonTrans_clicked() //JENNI-MARIA
@@ -58,7 +62,12 @@ void ClientWindow::on_pushButtonTrans_clicked() //JENNI-MARIA
     pQTimer->stop();
     TransactionWindow transWindow(webToken,myCardId);
     transWindow.setModal(true);
-    transWindow.exec();
+    int a=transWindow.exec();
+    if(a==0){
+        s=0;
+        pQTimer->start(1000);
+    }
+
 
 }
 
@@ -69,7 +78,11 @@ void ClientWindow::on_button_withdraw_clicked()//JUSTIINA
     pQTimer->stop();
     DrawWindow drawwWindow(webToken,myCardId);
     drawwWindow.setModal(true);
-    drawwWindow.exec();
+    int a=drawwWindow.exec();
+    if(a==0){
+        s=0;
+        pQTimer->start(1000);
+    }
 }
 
 
@@ -78,7 +91,11 @@ void ClientWindow::on_button_deposit_clicked()//JUSTIINA
     pQTimer->stop();
     DepositWindow deppositWindow(webToken,myCardId);
     deppositWindow.setModal(true);
-    deppositWindow.exec();
+    int a=deppositWindow.exec();
+    if(a==0){
+        s=0;
+        pQTimer->start(1000);
+    }
 }
 
 void ClientWindow::on_button_exit_clicked()
@@ -95,7 +112,7 @@ void ClientWindow::handleTimeout()
 {
     s++;
     qDebug()<<s;
-    if (s==10)
+    if (s==30)
     {
         pQTimer->stop();
         //close();
@@ -111,6 +128,10 @@ void ClientWindow::on_button_transfer_clicked()//ESSI (backend) ja JUSTIINA (fro
     pQTimer->stop();
     TransferWindow transferWindow(webToken,myCardId);
     transferWindow.setModal(true);
-    transferWindow.exec();    
+    int a=transferWindow.exec();
+    if(a==0){
+        s=0;
+        pQTimer->start(1000);
+    }
 }
 

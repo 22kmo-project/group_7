@@ -11,6 +11,11 @@ TransferWindow::TransferWindow(QByteArray wt,QString id_card, QWidget *parent) :
     webToken=wt;
     myCardId=id_card;
 
+    s=0;
+    transferTimer = new QTimer;
+    connect(transferTimer,SIGNAL(timeout()),this,SLOT(handleTimeout()));
+    transferTimer->start(1000);
+
     QString site_url=MyURL::getBaseUrl()+"/accountclient/"+myCardId;
     QNetworkRequest request((site_url));
     //WEBTOKEN ALKU
@@ -34,14 +39,19 @@ void TransferWindow::on_btn_ok_clicked()
 {
     switch(ok_count) {
     case 1:
+        transferTimer->stop();
+        s=0;
         myAccountIdReceiver=ui->lineEdit->text();
         myAccountIdReceiverInt=myAccountIdReceiver.toInt();
         ui->lineEdit->clear();
         ui->label_info->setText("Anna siirrettävä rahasumma ja paina OK");
         ok_count++;
+        transferTimer->start(1000);
         break;
 
     case 2:
+        transferTimer->stop();
+        s=0;
         amount=ui->lineEdit->text();
         amountValue=amount.toDouble();
         ui->lineEdit->clear();
@@ -50,9 +60,12 @@ void TransferWindow::on_btn_ok_clicked()
                                 +amount+"\nVahvista siirto painamalla OK "
                                         "\ntai keskeytä painamalla Peru");
         ok_count++;
+        transferTimer->start(1000);
         break;
 
     default:
+        transferTimer->stop();
+        s=0;
         //Get account info from the database and transfer the money
         QJsonObject jsonObjTransfer;
         jsonObjTransfer.insert("id_account1", myAccountId);
@@ -104,74 +117,124 @@ void TransferWindow::transferSlot(QNetworkReply *replyTransfer)
                                 "\n"
                                 "Palaa edelliseen valikkoon painamalla Peru \n"
                                 "ja yritä uudelleen.");
+        transferTimer->start(1000);
     }
+
+    else{
     ui->label_info->clear();
     ui->label_info->setText("Tilisiirto onnistui.\n"
                             "Palaa edelliseen valikkoon painamalla Peru\n"
                             "tai sulje ohjelma.");
+    transferTimer->start(1000);
+    }
+
     replyTransfer->deleteLater();
     transferManager->deleteLater();
     //this->close();
 }
 
+void TransferWindow::handleTimeout()
+{
+    s++;
+    qDebug()<<s;
+    if (s==10)
+    {
+        transferTimer->stop();
+         close();
+    }
+
+}
+
 void TransferWindow::on_btn_clear_clicked()
 {
+    transferTimer->stop();
     close();
 }
 
 void TransferWindow::on_btn_close_clicked()
 {
+    transferTimer->stop();
     QApplication::closeAllWindows();
 }
 
 void TransferWindow::on_btn_1_clicked()
 {
+    transferTimer->stop();
+    s=0;
     ui->lineEdit->setText(ui->lineEdit->text()+ "1");
+    transferTimer->start(1000);
 }
 
 void TransferWindow::on_btn_2_clicked()
 {
+    transferTimer->stop();
+    s=0;
     ui->lineEdit->setText(ui->lineEdit->text()+ "2");
+    transferTimer->start(1000);
 }
 
 void TransferWindow::on_btn_3_clicked()
 {
+    transferTimer->stop();
+    s=0;
     ui->lineEdit->setText(ui->lineEdit->text()+ "3");
+    transferTimer->start(1000);
 }
 
 void TransferWindow::on_btn_4_clicked()
 {
+    transferTimer->stop();
+    s=0;
     ui->lineEdit->setText(ui->lineEdit->text()+ "4");
+    transferTimer->start(1000);
 }
 
 void TransferWindow::on_btn_5_clicked()
 {
+    transferTimer->stop();
+    s=0;
     ui->lineEdit->setText(ui->lineEdit->text()+ "5");
+    transferTimer->start(1000);
 }
 
 void TransferWindow::on_btn_6_clicked()
 {
+    transferTimer->stop();
+    s=0;
     ui->lineEdit->setText(ui->lineEdit->text()+ "6");
+    transferTimer->start(1000);
 }
 
 void TransferWindow::on_btn_7_clicked()
 {
+    transferTimer->stop();
+    s=0;
     ui->lineEdit->setText(ui->lineEdit->text()+ "7");
+    transferTimer->start(1000);
 }
 
 void TransferWindow::on_btn_8_clicked()
 {
+    transferTimer->stop();
+    s=0;
     ui->lineEdit->setText(ui->lineEdit->text()+ "8");
+    transferTimer->start(1000);
 }
 
 void TransferWindow::on_btn_9_clicked()
 {
+    transferTimer->stop();
+    s=0;
     ui->lineEdit->setText(ui->lineEdit->text()+ "9");
+    transferTimer->start(1000);
 }
 
 void TransferWindow::on_btn_0_clicked()
 {
+    transferTimer->stop();
+    s=0;
     ui->lineEdit->setText(ui->lineEdit->text()+ "0");
+    transferTimer->start(1000);
 }
 
 

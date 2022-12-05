@@ -12,10 +12,10 @@ DrawWindow::DrawWindow(QByteArray wt,QString id_card, QWidget *parent) :
     ui->setupUi(this);
     this->setWindowTitle("Nosta varoja");
 
-    timer = new QTimer(this);
-    connect(timer,SIGNAL(timeout()),
-            this,SLOT(myfunction()));
-    timer->start(1000);
+    s=0;
+    drawTimer = new QTimer;
+    connect(drawTimer,SIGNAL(timeout()),this,SLOT(handleTimeout()));
+    drawTimer->start(1000);
 
     webToken=wt;
     myCardId=id_card;
@@ -69,49 +69,80 @@ void DrawWindow::checkMoney(double bal, double am)
     }
 }
 
+void DrawWindow::handleTimeout()
+{
+    s++;
+    qDebug()<<s;
+    if (s==10)
+    {
+        drawTimer->stop();
+         close();
+    }
+
+}
+
 void DrawWindow::on_button_20e_clicked()
 {
+    drawTimer->stop();
+    s=0;
     checkMoney(balanceValue,20);
     amount="-20";
+    drawTimer->start(1000);
 }
 
 
 void DrawWindow::on_button_40e_clicked()
 {
+    drawTimer->stop();
+    s=0;
     checkMoney(balanceValue,40);
     amount="-40";
+    drawTimer->start(1000);
 }
 
 
 void DrawWindow::on_button_60e_clicked()
 {
+    drawTimer->stop();
+    s=0;
     checkMoney(balanceValue,60);
     amount="-60";
+    drawTimer->start(1000);
 }
 
 
 void DrawWindow::on_button_100e_clicked()
 {
+    drawTimer->stop();
+    s=0;
     checkMoney(balanceValue,100);
     amount="-100";
+    drawTimer->start(1000);
 }
 
 
 void DrawWindow::on_button_200e_clicked()
 {
+    drawTimer->stop();
+    s=0;
     checkMoney(balanceValue,200);
     amount="-200";
+    drawTimer->start(1000);
 }
 
 
 void DrawWindow::on_button_500e_clicked()
 {
+    drawTimer->stop();
+    s=0;
     checkMoney(balanceValue,500);
     amount="-500";
+    drawTimer->start(1000);
 }
 
 void DrawWindow::on_button_ok_clicked()
 {
+    drawTimer->stop();
     //Update account table
     QJsonObject jsonObjUpdate;
     jsonObjUpdate.insert("id_client",myClientId);
@@ -155,6 +186,7 @@ void DrawWindow::on_button_ok_clicked()
 
 void DrawWindow::on_button_exit_clicked()
 {
+    drawTimer->stop();
     close();
 }
 

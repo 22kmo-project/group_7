@@ -19,13 +19,12 @@ public:
     explicit BalanceWindow(QByteArray wt, QString id_card, QWidget *parent = nullptr);
     ~BalanceWindow();
     const QString &getWebToken() const;
-    //void setWebToken(const QByteArray &newWebToken);
 
 private slots:
     void on_Button_close_clicked();
     void balanceSlot (QNetworkReply *reply);
     void clientSlot (QNetworkReply *reply);
-    //void myFunction();
+    void handleTimeout();
 
 private:
     Ui::BalanceWindow *ui;
@@ -39,7 +38,8 @@ private:
     QString balance;
     double balanceValue;
     QString myClientId;
-    QTimer *timer;
+    QTimer *balanceTimer;
+    short s;
 };
 
 #endif // BALANCEWINDOW_H

@@ -23,7 +23,6 @@ private slots:
     void depositSlot (QNetworkReply *reply);
     void updateBalanceSlot (QNetworkReply *reply);
     void postTransactionSlot (QNetworkReply *reply);
-    //void myFunction();
     void on_button_ok_clicked();
     void on_button_exit_clicked();
     void on_button_20e_clicked();
@@ -34,6 +33,7 @@ private slots:
     void on_button_300e_clicked();
     void on_button_400e_clicked();
     void on_button_500e_clicked();
+    void handleTimeout();
 
 private:
     Ui::DepositWindow *ui;
@@ -41,8 +41,8 @@ private:
     QString myCardId;
     QString myClientId;
     QString myAccountId;
-    QTimer *timer;
-
+    QTimer *depositTimer;
+    short s;
     QNetworkReply *reply;
     QNetworkReply *replyPost;
     QByteArray response_data;
