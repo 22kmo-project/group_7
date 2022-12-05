@@ -19,7 +19,7 @@ const transaction = {
 
   transferAmount: function(add_data, callback){
     return db.query(
-      'call debit_transfer2(?,?,?)',[add_data.id_account1, add_data.id_account2, add_data.amount], callback
+      'call debit_transfer(?,?,?)',[add_data.id_account1, add_data.id_account2, add_data.amount], callback
     );
   },
   
@@ -36,6 +36,7 @@ const transaction = {
   },
   getTenTransactions: function(id,callback){
     return db.query('select transaction.transaction as "tapahtuman laji", concat(client.fname," ",client.lname) as "asiakkaan nimi", account.balance as "tilin saldo", date_format(transaction_date,"%d.%m.%Y") as "päivämäärä", transaction.amount as "summa" from transaction inner join account on transaction.id_account=account.id_account inner join card on card.id_client=account.id_client inner join client on client.id_client=card.id_client where card.id_card=? ORDER BY transaction.transaction_date DESC limit 10;',[id],callback);
+
   },
   getFiveTransactions: function(id,callback){
     return db.query('select transaction.transaction as "tapahtuman laji", concat(client.fname," ",client.lname) as "asiakkaan nimi", account.balance as "tilin saldo", date_format(transaction_date,"%d.%m.%Y") as "päivämäärä", transaction.amount as "summa" from transaction inner join account on transaction.id_account=account.id_account inner join card on card.id_client=account.id_client inner join client on client.id_client=card.id_client where card.id_card=? ORDER BY transaction.transaction_date DESC limit 5;',[id],callback);

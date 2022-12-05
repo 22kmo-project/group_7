@@ -17,7 +17,7 @@ class TransactionWindow : public QDialog
 public:
     explicit TransactionWindow(QByteArray wt, QString id_card, QWidget *parent = nullptr);
     ~TransactionWindow();
-    const QString &getWebToken() const;
+    //const QString &getWebToken() const;
 private slots:
     void TransSlot(QNetworkReply *reply);
     void on_pushButtonClose_clicked();

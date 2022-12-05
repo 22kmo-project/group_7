@@ -38,7 +38,6 @@ TransactionWindow::~TransactionWindow()
 
 void TransactionWindow::TransSlot (QNetworkReply *reply)
 {
-
     QByteArray response_data=reply->readAll();
     qDebug()<<response_data;
     QJsonDocument json_doc = QJsonDocument::fromJson(response_data);

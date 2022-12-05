@@ -74,23 +74,50 @@ void DepositWindow::postTransactionSlot(QNetworkReply *replyPost)
     this->close();
 }
 
-/*void DepositWindow::myFunction()
+void DepositWindow::on_button_ok_clicked()
 {
-    int i=30;
-    while(i<=30)
-    {
-        qDebug() << "" <<i;
-        --i;
-        Sleep(1000);
-        system("cls");
+    //Update account table
+    amountValue=QString(amount).toDouble();
+    balanceValue=balanceValue+amountValue;
+    balance=QString::number(balanceValue);
 
-    if(i==0)
-    break;    //qApp->quit();
-        //QProcess::startDetached(qApp->arguments()[0], qApp->arguments());
-    }
-}*/
+    QJsonObject jsonObjUpdate;
+    jsonObjUpdate.insert("id_client",myClientId);
+    jsonObjUpdate.insert("balance",balance);
 
+    QString site_url=MyURL::getBaseUrl()+"/account/"+myAccountId;
+    QNetworkRequest request((site_url));
+    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
 
+    //WEBTOKEN ALKU
+    request.setRawHeader(QByteArray("Authorization"),(webToken));
+    //WEBTOKEN LOPPU
+
+    updateManager = new QNetworkAccessManager(this);
+    connect(updateManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(updateBalanceSlot(QNetworkReply*)));
+
+    reply = updateManager->put(request, QJsonDocument(jsonObjUpdate).toJson());
+
+    //Add new transaction to transactin table
+    QJsonObject jsonObjPost;
+    jsonObjPost.insert("id_account",myAccountId);
+    jsonObjPost.insert("id_card",myCardId);
+    jsonObjPost.insert("transaction_date",QDate::currentDate().toString(Qt::ISODate));
+    jsonObjPost.insert("transaction","Pano");
+    jsonObjPost.insert("amount",amount);
+    QString site_urlPost=MyURL::getBaseUrl()+"/transaction/";
+    QNetworkRequest requestPost((site_urlPost));
+    requestPost.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+
+    //WEBTOKEN ALKU
+    requestPost.setRawHeader(QByteArray("Authorization"),(webToken));
+    //WEBTOKEN LOPPU
+
+    postManager=new QNetworkAccessManager(this);
+    connect(postManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(postTransactionSlot(QNetworkReply*)));
+
+    replyPost=postManager->post(requestPost, QJsonDocument(jsonObjPost).toJson());
+}
 
 void DepositWindow::on_button_20e_clicked()
 {
@@ -147,50 +174,6 @@ void DepositWindow::on_button_500e_clicked()
     amount="500";
 }
 
-void DepositWindow::on_button_ok_clicked()
-{
-    //Update account table
-    amountValue=QString(amount).toDouble();
-    balanceValue=balanceValue+amountValue;
-    balance=QString::number(balanceValue);
-
-    QJsonObject jsonObjUpdate;
-    jsonObjUpdate.insert("id_client",myClientId);
-    jsonObjUpdate.insert("balance",balance);
-
-    QString site_url=MyURL::getBaseUrl()+"/account/"+myAccountId;
-    QNetworkRequest request((site_url));
-    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
-
-    //WEBTOKEN ALKU
-    request.setRawHeader(QByteArray("Authorization"),(webToken));
-    //WEBTOKEN LOPPU
-
-    updateManager = new QNetworkAccessManager(this);
-    connect(updateManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(updateBalanceSlot(QNetworkReply*)));
-
-    reply = updateManager->put(request, QJsonDocument(jsonObjUpdate).toJson());
-
-    //Add new transaction to transactin table
-    QJsonObject jsonObjPost;
-    jsonObjPost.insert("id_account",myAccountId);
-    jsonObjPost.insert("id_card",myCardId);
-    jsonObjPost.insert("transaction_date",QDate::currentDate().toString(Qt::ISODate));
-    jsonObjPost.insert("transaction","Pano");
-    jsonObjPost.insert("amount",amount);
-    QString site_urlPost=MyURL::getBaseUrl()+"/transaction/";
-    QNetworkRequest requestPost((site_urlPost));
-    requestPost.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
-
-    //WEBTOKEN ALKU
-    requestPost.setRawHeader(QByteArray("Authorization"),(webToken));
-    //WEBTOKEN LOPPU
-
-    postManager=new QNetworkAccessManager(this);
-    connect(postManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(postTransactionSlot(QNetworkReply*)));
-
-    replyPost=postManager->post(requestPost, QJsonDocument(jsonObjPost).toJson());
-}
 
 
 void DepositWindow::on_button_exit_clicked()
