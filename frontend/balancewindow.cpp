@@ -35,33 +35,10 @@ BalanceWindow::~BalanceWindow()
     delete ui;
 }
 
-/*void BalanceWindow::setWebToken(const QByteArray &newWebToken)
-{
-    webToken = newWebToken;
-}*/
-
 void BalanceWindow::on_Button_close_clicked()
 {
     close();
 }
-
-/*void BalanceWindow::myFunction()
-{
-    int i=30;
-    while(i<=30)
-    {
-        qDebug() << "" <<i;
-        --i;
-        Sleep(1000);
-        system("cls");
-
-    if(i==0)
-    break;
-
-        //qApp->quit();
-        //QProcess::startDetached(qApp->arguments()[0], qApp->arguments());
-    }
-}*/
 
 void BalanceWindow::balanceSlot(QNetworkReply *reply)
 {

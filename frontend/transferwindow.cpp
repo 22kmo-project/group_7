@@ -48,7 +48,7 @@ void TransferWindow::on_btn_ok_clicked()
         ui->label_info->setText("Vastaanottajan tilinumero: "
                                 +myAccountIdReceiver+"\nSiireetävä summa: "
                                 +amount+"\nVahvista siirto painamalla OK "
-                                        "\ntai keskeytä painamalla Peru");
+                                        "\ntai keskeytä painamalla Sulje");
         ok_count++;
         break;
 
@@ -102,13 +102,12 @@ void TransferWindow::transferSlot(QNetworkReply *replyTransfer)
         ui->label_info->setText("Jokin meni vikaan. Tarkista vastaanottajan\n"
                                 "tilinumero ja siirrettävä summa\n"
                                 "\n"
-                                "Palaa edelliseen valikkoon painamalla Peru \n"
+                                "Palaa edelliseen valikkoon painamalla Sulje \n"
                                 "ja yritä uudelleen.");
+    } else {
+        ui->label_info->setText("Tilisiirto onnistui.\n"
+                                "Palaa edelliseen valikkoon painamalla Sulje");
     }
-    ui->label_info->clear();
-    ui->label_info->setText("Tilisiirto onnistui.\n"
-                            "Palaa edelliseen valikkoon painamalla Peru\n"
-                            "tai sulje ohjelma.");
     replyTransfer->deleteLater();
     transferManager->deleteLater();
     //this->close();
@@ -116,12 +115,12 @@ void TransferWindow::transferSlot(QNetworkReply *replyTransfer)
 
 void TransferWindow::on_btn_clear_clicked()
 {
-    close();
+    ui->lineEdit->clear();
 }
 
 void TransferWindow::on_btn_close_clicked()
 {
-    QApplication::closeAllWindows();
+    close();
 }
 
 void TransferWindow::on_btn_1_clicked()

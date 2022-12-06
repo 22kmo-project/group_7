@@ -60,7 +60,7 @@ void DrawWindow::drawSlot(QNetworkReply *reply)
 void DrawWindow::checkMoney(double bal, double am)
 {
     if(bal<am){
-        ui->label_info->setText("Tilillä ei ole tarpeeksi rahaa, valitse uusi summa tai paina Sulje.");
+        ui->label_info->setText("Tilillä ei ole tarpeeksi rahaa,\nvalitse uusi summa tai paina Sulje.");
     }
     else{
         bal=bal-am;

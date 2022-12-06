@@ -15,8 +15,6 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete ui;
-    delete objectClientWindow;
-    objectClientWindow=nullptr;
 }
 
 void MainWindow::on_btn_ok_clicked()
@@ -84,8 +82,7 @@ void MainWindow::loginSlot(QNetworkReply *reply)
 
 void MainWindow::on_btn_clear_clicked()
 {
-    qApp->quit();
-    QProcess::startDetached(qApp->arguments()[0], qApp->arguments());
+    ui->lineEdit->clear();
 }
 
 void MainWindow::on_btn_close_clicked()
