@@ -9,6 +9,7 @@
 #include <myurl.h>
 #include <QStyle>
 #include <QDesktopWidget>
+#include <QTimer>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -24,6 +25,7 @@ public:
 
 private slots:
     void loginSlot (QNetworkReply *reply);
+    void lockedSlot (QNetworkReply *reply);
     void on_btn_ok_clicked();
     void on_btn_clear_clicked();
     void on_btn_close_clicked();
@@ -37,16 +39,22 @@ private slots:
     void on_btn_8_clicked();
     void on_btn_9_clicked();
     void on_btn_0_clicked();
+    void handleTimeout();
 
 private:
     Ui::MainWindow *ui;
     int ok_count;
+    int pin_count;
     ClientWindow *objectClientWindow;
     QNetworkAccessManager *loginManager;
+    QNetworkAccessManager *lockManager;
     QNetworkReply *reply;
     QByteArray response_data;
     QString id_card;
     QString pin;
+    QTimer * Timer;
+    short s;
+    QString check_id;
 
 };
 #endif // MAINWINDOW_H

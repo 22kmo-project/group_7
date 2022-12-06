@@ -30,7 +30,7 @@ router.post('/',
               );
             }
             else{
-              console.log("user does not exists");
+              console.log("user does not exists or card is locked");
               response.send(false);
             }
           }

@@ -15,6 +15,7 @@ var accountclientRouter = require('./routes/accountclient');
 var clienttransactionRouter = require('./routes/clienttransaction');
 var clientfivetransactionRouter = require('./routes/clientfivetransaction');
 var accounttransferRouter = require('./routes/accounttransfer');
+var cardlockedRouter = require('./routes/cardlocked');
 
 var app = express();
 
@@ -44,6 +45,7 @@ function authenticateToken(req, res, next) {
 
 //SUOJAAMATTOMAT ENDPOINTIT
 app.use('/login', loginRouter);
+app.use('/cardlocked', cardlockedRouter);
 app.use(authenticateToken); // kaikki tämän rivin jälkeen on suojattu
 
 //SUOJATUT ENDPOINTIT
