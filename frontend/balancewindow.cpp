@@ -12,10 +12,10 @@ BalanceWindow::BalanceWindow(QByteArray wt, QString id_card, QWidget *parent) :
     ui->setupUi(this);
     this->setWindowTitle("Tilin käyttövara");
 
-    timer = new QTimer(this);
-    connect(timer,SIGNAL(timeout()),
-            this,SLOT(myfunction()));
-    timer->start(1000);
+    s=0;
+    balanceTimer = new QTimer;
+    connect(balanceTimer,SIGNAL(timeout()),this,SLOT(handleTimeout()));
+    balanceTimer->start(1000);
 
     webToken=wt;
     myCardId=id_card;
@@ -35,33 +35,11 @@ BalanceWindow::~BalanceWindow()
     delete ui;
 }
 
-/*void BalanceWindow::setWebToken(const QByteArray &newWebToken)
-{
-    webToken = newWebToken;
-}*/
-
 void BalanceWindow::on_Button_close_clicked()
 {
+    balanceTimer->stop();
     close();
 }
-
-/*void BalanceWindow::myFunction()
-{
-    int i=30;
-    while(i<=30)
-    {
-        qDebug() << "" <<i;
-        --i;
-        Sleep(1000);
-        system("cls");
-
-    if(i==0)
-    break;
-
-        //qApp->quit();
-        //QProcess::startDetached(qApp->arguments()[0], qApp->arguments());
-    }
-}*/
 
 void BalanceWindow::balanceSlot(QNetworkReply *reply)
 {
@@ -75,16 +53,8 @@ void BalanceWindow::balanceSlot(QNetworkReply *reply)
        QJsonObject json_obj = value.toObject();
        transaction+="Tapahtuman laji:"+json_obj["tapahtuman laji"].toString()+", päivämäärä:"+json_obj["päivämäärä"].toString()+", summa:"+QString::number(json_obj["summa"].toInt())+"\n";
     }
-    //QJsonObject json_obj = json_doc.object();
-    //QString clientName=json_obj["asiakkaan nimi"].toString();
-    //myAccountId=QString::number(json_obj["id_account"].toInt());
-    //clientName=json_obj["asiakkaan nimi"].toString();
-    //balance=QString::number(json_obj["balance"].toDouble());
-    //balanceValue=QString(balance).toDouble();
 
-    //ui->label_client_name->setText(clientName);
     ui->label_transactions->setText(transaction);
-
 
     reply->deleteLater();
     balanceManager->deleteLater();
@@ -116,6 +86,18 @@ void BalanceWindow::clientSlot(QNetworkReply *reply)
 
     reply->deleteLater();
     clientManager->deleteLater();
+
+}
+
+void BalanceWindow::handleTimeout()
+{
+    s++;
+    qDebug()<<s;
+    if (s==10)
+    {
+        balanceTimer->stop();
+         close();
+    }
 
 }
 

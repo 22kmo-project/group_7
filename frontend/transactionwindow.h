@@ -21,7 +21,7 @@ public:
 private slots:
     void TransSlot(QNetworkReply *reply);
     void on_pushButtonClose_clicked();
-    //void myfunction();
+    void handleTimeout();
 
 
 private:
@@ -43,7 +43,8 @@ private:
     QString balance;
     double balanceValue;
     QString myClientId;
-    QTimer *timer;
+    QTimer *transactionTimer;
+    short s;
 
 };
 

@@ -24,6 +24,7 @@ public:
 private slots:
     void getIdSlot(QNetworkReply *reply);
     void transferSlot (QNetworkReply *reply);
+    void handleTimeout();
 
     void on_btn_ok_clicked();
     void on_btn_clear_clicked();
@@ -55,6 +56,8 @@ private:
     double amountValue;
     QNetworkAccessManager *getIdManager;
     QNetworkAccessManager *transferManager;
+    QTimer *transferTimer;
+    short s;
 };
 
 #endif // TRANSFERWINDOW_H

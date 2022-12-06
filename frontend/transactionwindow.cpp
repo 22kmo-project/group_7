@@ -12,10 +12,10 @@ TransactionWindow::TransactionWindow(QByteArray wt, QString id_card, QWidget *pa
     ui->setupUi(this);
     this->setWindowTitle("Tilitapahtumat");
 
-    timer = new QTimer(this);
-    connect(timer,SIGNAL(timeout()),
-            this,SLOT(myfunction()));
-    timer->start(1000);
+    s=0;
+    transactionTimer = new QTimer;
+    connect(transactionTimer,SIGNAL(timeout()),this,SLOT(handleTimeout()));
+    transactionTimer->start(1000);
 
     auto webToken=wt;
     auto myCardId=id_card;
@@ -33,7 +33,7 @@ TransactionWindow::TransactionWindow(QByteArray wt, QString id_card, QWidget *pa
 TransactionWindow::~TransactionWindow()
 {
     delete ui;
-        ui=nullptr;
+    ui=nullptr;
 }
 
 void TransactionWindow::TransSlot (QNetworkReply *reply)
@@ -70,26 +70,17 @@ void TransactionWindow::TransSlot (QNetworkReply *reply)
 
 void TransactionWindow::on_pushButtonClose_clicked()
 {
+    transactionTimer->stop();
     close();
 }
 
-/*void TransactionWindow::myfunction()
+void TransactionWindow::handleTimeout()
 {
-    int i=30;
-    while(i<=30)
+    s++;
+    qDebug()<<s;
+    if (s==10)
     {
-        qDebug() << "" <<i;
-        --i;
-        Sleep(1000);
-        system("cls");
-
-    if(i==0)
-        qApp->quit();
-        QProcess::startDetached(qApp->arguments()[0], qApp->arguments());
-
+        transactionTimer->stop();
+         close();
     }
-}*/
-
-
-
-
+}
