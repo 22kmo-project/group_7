@@ -23,13 +23,13 @@ DROP TABLE IF EXISTS `account`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `account` (
-  `id_account` int NOT NULL AUTO_INCREMENT,
+  `id_account` int NOT NULL,
   `id_client` int DEFAULT NULL,
   `balance` float DEFAULT NULL,
   PRIMARY KEY (`id_account`),
   KEY `client_account_idx` (`id_client`),
   CONSTRAINT `client_account` FOREIGN KEY (`id_client`) REFERENCES `client` (`id_client`) ON DELETE RESTRICT ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -54,6 +54,7 @@ CREATE TABLE `card` (
   `id_client` int DEFAULT NULL,
   `id_account` int DEFAULT NULL,
   `pin` varchar(255) DEFAULT NULL,
+  `card_status` int DEFAULT '0',
   PRIMARY KEY (`id_card`),
   KEY `account_card_idx` (`id_account`),
   KEY `client_card_idx` (`id_client`),
@@ -68,7 +69,7 @@ CREATE TABLE `card` (
 
 LOCK TABLES `card` WRITE;
 /*!40000 ALTER TABLE `card` DISABLE KEYS */;
-INSERT INTO `card` VALUES (1,2,1,'$2a$10$akMt34A4E/xARAG8Dw/jreEx/4a/ahvLjp0q5xj0yNCcFGmmREOWG'),(2,4,7,'$2a$10$GfOIS7ylYstSR7llwbaCgOYneFVXs3xmTrlf1UykzEYXGDJTFT9hu'),(3,4,3,'$2a$10$aQ.YMJggwhj1Hq8c466UoOFa/Zi016fheYIq8SDsLiHy/IRbYpwqe'),(4,3,5,'$2a$10$9E8LKJb.rBBfPrBUoeaHU.N.ULyFd0wXL3d3UUFUXQq11P/G8A/J6'),(5,2,2,'$2a$10$TR.7mDYq4w5nw9K5kbM3S.UeNEA3VeunGOY4PskuODCqks2xH0qsO'),(6,5,10,'$2a$10$VITtzNy68Mh.NPEMA9KgfuCqd7RsFq8Yptiww.PxbLFZ6B3gESCYm'),(7,3,4,'$2a$10$ZBUuRXJTmKnbM0NRos2zhejB3s3dPmK40LbiKlQtVyDeeAAZVn/y6'),(8,1,9,'$2a$10$0CwpWWmumTjtHNcmaoUXo.EuZlaifeSYgFVkj.dvZvKUEzuRgeDtO'),(9,5,6,'$2a$10$gnXUYaV6ZHfb2slyMDF7NuvojR0FymokuwrWgYa7M2qL4SkgvQsWy'),(10,2,8,'$2a$10$PawNoqLxJ.Es9zqjGg.vse4/kme0UCg3RTT/jM8RclChs9/jiAxxS');
+INSERT INTO `card` VALUES (1,2,1,'$2a$10$akMt34A4E/xARAG8Dw/jreEx/4a/ahvLjp0q5xj0yNCcFGmmREOWG',0),(2,4,7,'$2a$10$GfOIS7ylYstSR7llwbaCgOYneFVXs3xmTrlf1UykzEYXGDJTFT9hu',0),(3,4,3,'$2a$10$aQ.YMJggwhj1Hq8c466UoOFa/Zi016fheYIq8SDsLiHy/IRbYpwqe',0),(4,3,5,'$2a$10$9E8LKJb.rBBfPrBUoeaHU.N.ULyFd0wXL3d3UUFUXQq11P/G8A/J6',0),(5,2,2,'$2a$10$TR.7mDYq4w5nw9K5kbM3S.UeNEA3VeunGOY4PskuODCqks2xH0qsO',0),(6,5,10,'$2a$10$VITtzNy68Mh.NPEMA9KgfuCqd7RsFq8Yptiww.PxbLFZ6B3gESCYm',0),(7,3,4,'$2a$10$ZBUuRXJTmKnbM0NRos2zhejB3s3dPmK40LbiKlQtVyDeeAAZVn/y6',0),(8,1,9,'$2a$10$0CwpWWmumTjtHNcmaoUXo.EuZlaifeSYgFVkj.dvZvKUEzuRgeDtO',0),(9,5,6,'$2a$10$gnXUYaV6ZHfb2slyMDF7NuvojR0FymokuwrWgYa7M2qL4SkgvQsWy',0),(10,2,8,'$2a$10$PawNoqLxJ.Es9zqjGg.vse4/kme0UCg3RTT/jM8RclChs9/jiAxxS',0);
 /*!40000 ALTER TABLE `card` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -177,4 +178,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-12-04 23:06:08
+-- Dump completed on 2022-12-06 17:28:26
