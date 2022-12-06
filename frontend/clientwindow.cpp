@@ -101,11 +101,7 @@ void ClientWindow::on_button_deposit_clicked()//JUSTIINA
 void ClientWindow::on_button_exit_clicked()
 {
     pQTimer->stop();
-    //qDebug()<<s;
-    //close();
-    QApplication::closeAllWindows();
-    qApp->quit();
-    QProcess::startDetached(qApp->arguments()[0], qApp->arguments());
+    close();
 }
 
 void ClientWindow::handleTimeout()

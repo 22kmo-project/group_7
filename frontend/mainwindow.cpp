@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -8,12 +9,12 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     this->setWindowTitle("Pankkiautomaatti");
     //QWidget::showMaximized(); //Näytetään ikkuna kokonäytöllä
-    //ok_count=0;
-    //if(ok_count ==0){
-        ui->label_info->setText("Anna kortin numero ja paina ok");
-        ok_count=1;
-    //}
-
+    pin_count=0;
+    s=0;
+    ok_count=0;
+    Timer = new QTimer;
+    connect(Timer,SIGNAL(timeout()),this,SLOT(handleTimeout()));
+    ui->label_info->setText("Anna kortin numero ja paina ok");
 }
 
 MainWindow::~MainWindow()
@@ -25,15 +26,17 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_btn_ok_clicked()
 {
-    //qDebug()<<ok_count;
-     if(ok_count == 1) {
+    ok_count++;
+    if(ok_count == 1) {
         id_card=ui->lineEdit->text();
         ui->lineEdit->clear();
         ui->lineEdit->setEchoMode(QLineEdit::Password);
         ui->label_info->setText("Anna pin-koodi ja paina ok");
         ok_count++;
-    } else {
+    }
+    else {
         pin=ui->lineEdit->text();
+        //ui->lineEdit->setEchoMode(QLineEdit::Normal);
         QJsonObject jsonObj;
         jsonObj.insert("id_card", id_card);
         jsonObj.insert("pin", pin);
@@ -55,32 +58,43 @@ void MainWindow::loginSlot(QNetworkReply *reply)
 {
     response_data=reply->readAll();
     qDebug()<<response_data;
+
     int test=QString::compare(response_data, "false");
     qDebug()<<test;
 
     if(response_data.length()==0){
         ui->lineEdit->clear();
         ui->label_info->setText("Palvelin ei vastaa!");
+        Timer->start(1000);
     }
     else{
 
     if(QString::compare(response_data,"-4078")==0){
         ui->lineEdit->clear();
         ui->label_info->setText("Virhe tietokantayhteydessä!");
+        Timer->start(1000);
     }
 
     else{
 
         if(test==0){
             ui->lineEdit->clear();
-            ui->label_info->setText("Kortin numero ja pin-koodi eivät täsmää!");
+            ui->label_info->setText("Kortin numero ja pin-koodi eivät täsmää!\n Huomioi, että kortti voi myös olla lukittu.");
+            pin_count++;
+            Timer->start(1000);
         }
 
         else {
+            ui->lineEdit->clear();
+            ok_count=0;
+            ui->label_info->setText("Anna kortin numero ja paina ok");
             objectClientWindow = new ClientWindow(id_card);
             objectClientWindow->setWebToken("Bearer "+response_data);
             objectClientWindow->show();
-            //ok_count=0;
+            id_card="";
+            pin="";
+            pin_count=0;
+
         }
     }
     }
@@ -91,10 +105,17 @@ void MainWindow::loginSlot(QNetworkReply *reply)
 
 }
 
+void MainWindow::lockedSlot(QNetworkReply *reply)
+{
+    response_data=reply->readAll();
+    qDebug()<<response_data;
+    int test=QString::compare(response_data, "false");
+    qDebug()<<test;
+}
+
 void MainWindow::on_btn_clear_clicked()
 {
-    qApp->quit();
-    QProcess::startDetached(qApp->arguments()[0], qApp->arguments());
+    ui->lineEdit->clear();
 }
 
 void MainWindow::on_btn_close_clicked()
@@ -152,4 +173,35 @@ void MainWindow::on_btn_9_clicked()
 void MainWindow::on_btn_0_clicked()
 {
     ui->lineEdit->setText(ui->lineEdit->text()+ "0");
+}
+
+void MainWindow::handleTimeout()
+{
+    s++;
+    qDebug()<<s;
+    if (s==2 && pin_count<3)
+    {
+        Timer->stop();
+        s=0;
+        ui->lineEdit->clear();
+
+        ui->label_info->setText("Anna pin-koodi ja paina ok");
+        ok_count=1;
+    }
+
+    else if(s==2 && pin_count==3){
+        Timer->stop();
+        s=0;
+        ui->lineEdit->clear();
+        ui->label_info->setText("Pin-koodi laitettu kolme kertaa väärin, kortti lukittu!");
+        QJsonObject jsonObj;
+        ui->lineEdit->clear();
+
+        QString site_url_lock=MyURL::getBaseUrl()+"/cardlocked/"+id_card;
+        QNetworkRequest request((site_url_lock));
+
+        lockManager = new QNetworkAccessManager(this);
+        connect(lockManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(lockedSlot(QNetworkReply*)));
+
+        reply = lockManager->put(request, QJsonDocument().toJson());        }
 }
