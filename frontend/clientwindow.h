@@ -9,6 +9,7 @@
 #include "balancewindow.h"
 #include "transactionwindow.h"
 #include "depositwindow.h"
+#include "transferwindow.h"
 #include <QTimer>
 
 namespace Ui {
@@ -45,6 +46,7 @@ private:
     BalanceWindow *objectBalanceWindow;
     TransactionWindow *objectTransactionWindow;
     DepositWindow *objectDepositWindow;
+    TransferWindow *objectTransferWindow;
     QTimer * pQTimer;
     short s;
 };

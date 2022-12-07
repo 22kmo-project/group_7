@@ -28,15 +28,6 @@ ClientWindow::~ClientWindow()
 {
     delete ui;
 
-    delete objectDrawWindow;
-    objectDrawWindow=nullptr;
-
-    delete objectDepositWindow;
-    objectDepositWindow=nullptr;
-
-    delete objectBalanceWindow;
-    objectBalanceWindow=nullptr;
-
 }
 
 void ClientWindow::setWebToken(const QByteArray &newWebToken)
@@ -48,9 +39,9 @@ void ClientWindow::on_button_nayta_saldo_clicked()//ESSI
 {
 
     pQTimer->stop();
-    BalanceWindow balanceWindow(webToken,myCardId);
-    balanceWindow.setModal(true);
-    int a=balanceWindow.exec();
+    objectBalanceWindow = new BalanceWindow(webToken,myCardId, this);
+    objectBalanceWindow->setModal(true);
+    int a=objectBalanceWindow->exec();
     if(a==0){
         s=0;
         pQTimer->start(1000);
@@ -60,9 +51,9 @@ void ClientWindow::on_button_nayta_saldo_clicked()//ESSI
 void ClientWindow::on_pushButtonTrans_clicked() //JENNI-MARIA
 {
     pQTimer->stop();
-    TransactionWindow transWindow(webToken,myCardId);
-    transWindow.setModal(true);
-    int a=transWindow.exec();
+    objectTransactionWindow = new TransactionWindow (webToken,myCardId, this);
+    objectTransactionWindow->setModal(true);
+    int a=objectTransactionWindow->exec();
     if(a==0){
         s=0;
         pQTimer->start(1000);
@@ -76,9 +67,9 @@ void ClientWindow::on_button_withdraw_clicked()//JUSTIINA
 {
 
     pQTimer->stop();
-    DrawWindow drawwWindow(webToken,myCardId);
-    drawwWindow.setModal(true);
-    int a=drawwWindow.exec();
+    objectDrawWindow = new DrawWindow(webToken,myCardId, this);
+    objectDrawWindow->setModal(true);
+    int a=objectDrawWindow->exec();
     if(a==0){
         s=0;
         pQTimer->start(1000);
@@ -89,9 +80,9 @@ void ClientWindow::on_button_withdraw_clicked()//JUSTIINA
 void ClientWindow::on_button_deposit_clicked()//JUSTIINA
 {
     pQTimer->stop();
-    DepositWindow deppositWindow(webToken,myCardId);
-    deppositWindow.setModal(true);
-    int a=deppositWindow.exec();
+    objectDepositWindow = new DepositWindow(webToken,myCardId, this);
+    objectDepositWindow->setModal(true);
+    int a=objectDepositWindow->exec();
     if(a==0){
         s=0;
         pQTimer->start(1000);
@@ -111,10 +102,8 @@ void ClientWindow::handleTimeout()
     if (s==30)
     {
         pQTimer->stop();
-        //close();
-        QApplication::closeAllWindows();
-        qApp->quit();
-        QProcess::startDetached(qApp->arguments()[0], qApp->arguments());
+        close();
+
     }
 
 }
@@ -122,9 +111,9 @@ void ClientWindow::handleTimeout()
 void ClientWindow::on_button_transfer_clicked()//ESSI (backend) ja JUSTIINA (frontend)
 {
     pQTimer->stop();
-    TransferWindow transferWindow(webToken,myCardId);
-    transferWindow.setModal(true);
-    int a=transferWindow.exec();
+    objectTransferWindow = new TransferWindow(webToken,myCardId, this);
+    objectTransferWindow->setModal(true);
+    int a=objectTransferWindow->exec();
     if(a==0){
         s=0;
         pQTimer->start(1000);
