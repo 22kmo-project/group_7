@@ -37,6 +37,9 @@ ClientWindow::~ClientWindow()
     delete objectBalanceWindow;
     objectBalanceWindow=nullptr;
 
+    delete objectTransactionWindow;
+    objectTransactionWindow=nullptr;
+
 }
 
 void ClientWindow::setWebToken(const QByteArray &newWebToken)

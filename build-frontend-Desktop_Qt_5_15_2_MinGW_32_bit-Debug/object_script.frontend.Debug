@@ -1,0 +1,16 @@
+debug/balancewindow.o
+debug/clientwindow.o
+debug/depositwindow.o
+debug/drawwindow.o
+debug/main.o
+debug/mainwindow.o
+debug/myurl.o
+debug/transactionwindow.o
+debug/transferwindow.o
+debug/moc_balancewindow.o
+debug/moc_clientwindow.o
+debug/moc_depositwindow.o
+debug/moc_drawwindow.o
+debug/moc_mainwindow.o
+debug/moc_transactionwindow.o
+debug/moc_transferwindow.o

@@ -1,0 +1,16 @@
+release/balancewindow.o
+release/clientwindow.o
+release/depositwindow.o
+release/drawwindow.o
+release/main.o
+release/mainwindow.o
+release/myurl.o
+release/transactionwindow.o
+release/transferwindow.o
+release/moc_balancewindow.o
+release/moc_clientwindow.o
+release/moc_depositwindow.o
+release/moc_drawwindow.o
+release/moc_mainwindow.o
+release/moc_transactionwindow.o
+release/moc_transferwindow.o
