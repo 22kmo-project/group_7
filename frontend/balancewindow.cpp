@@ -45,7 +45,6 @@ void BalanceWindow::balanceSlot(QNetworkReply *reply)
 {
     QByteArray response_data=reply->readAll();
     qDebug()<<response_data;
-    //tietokannasta haku onnistuu!
     QJsonDocument json_doc = QJsonDocument::fromJson(response_data);
     QJsonArray json_array = json_doc.array();
     QString transaction;

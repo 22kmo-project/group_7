@@ -12,6 +12,7 @@ MainWindow::MainWindow(QWidget *parent)
     pin_count=0;
     s=0;
     ok_count=0;
+    locked_check=false;
     Timer = new QTimer;
     connect(Timer,SIGNAL(timeout()),this,SLOT(handleTimeout()));
     ui->label_info->setText("Anna kortin numero ja paina ok");
@@ -20,8 +21,6 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete ui;
-    delete objectClientWindow;
-    objectClientWindow=nullptr;
 }
 
 void MainWindow::on_btn_ok_clicked()
@@ -33,10 +32,10 @@ void MainWindow::on_btn_ok_clicked()
         ui->lineEdit->setEchoMode(QLineEdit::Password);
         ui->label_info->setText("Anna pin-koodi ja paina ok");
         ok_count++;
+        locked_check=false;
     }
     else {
         pin=ui->lineEdit->text();
-        //ui->lineEdit->setEchoMode(QLineEdit::Normal);
         QJsonObject jsonObj;
         jsonObj.insert("id_card", id_card);
         jsonObj.insert("pin", pin);
@@ -88,13 +87,18 @@ void MainWindow::loginSlot(QNetworkReply *reply)
             ui->lineEdit->clear();
             ok_count=0;
             ui->label_info->setText("Anna kortin numero ja paina ok");
-            objectClientWindow = new ClientWindow(id_card);
+            objectClientWindow = new ClientWindow(id_card, this);
             objectClientWindow->setWebToken("Bearer "+response_data);
-            objectClientWindow->show();
-            id_card="";
-            pin="";
-            pin_count=0;
+            objectClientWindow->setModal(true);
+            int a=objectClientWindow->exec();
+            if(a==0){
+                pin_count=0;
+                s=0;
+                id_card="";
+                pin="";
+                objectClientWindow->setWebToken("");
 
+            }
         }
     }
     }
@@ -179,7 +183,7 @@ void MainWindow::handleTimeout()
 {
     s++;
     qDebug()<<s;
-    if (s==2 && pin_count<3)
+    if (s==10 && pin_count<3 && locked_check==false)
     {
         Timer->stop();
         s=0;
@@ -189,7 +193,7 @@ void MainWindow::handleTimeout()
         ok_count=1;
     }
 
-    else if(s==2 && pin_count==3){
+    else if(s==10 && pin_count==3 && locked_check==false){
         Timer->stop();
         s=0;
         ui->lineEdit->clear();
@@ -203,5 +207,19 @@ void MainWindow::handleTimeout()
         lockManager = new QNetworkAccessManager(this);
         connect(lockManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(lockedSlot(QNetworkReply*)));
 
-        reply = lockManager->put(request, QJsonDocument().toJson());        }
+        reply = lockManager->put(request, QJsonDocument().toJson());
+        pin_count=0;
+        locked_check=true;
+        Timer->start(1000);
+    }
+    else if(s==10 && pin_count<3 && locked_check==true){
+         Timer->stop();
+         pin_count=0;
+         s=0;
+         id_card="";
+         pin="";
+         ok_count=0;
+         ui->label_info->setText("Anna kortin numero ja paina ok");
+
+    }
 }
