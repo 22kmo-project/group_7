@@ -17,32 +17,31 @@ class TransactionWindow : public QDialog
 public:
     explicit TransactionWindow(QByteArray wt, QString id_card, QWidget *parent = nullptr);
     ~TransactionWindow();
-    //const QString &getWebToken() const;
+    const QString &getWebToken() const;
 private slots:
     void TransSlot(QNetworkReply *reply);
     void on_pushButtonClose_clicked();
+    void TransBalanceSlot (QNetworkReply *reply);
     void handleTimeout();
 
 
 private:
     Ui::TransactionWindow*ui;
     QNetworkAccessManager *transManager;
-    QNetworkAccessManager *clientManager;
-    QNetworkAccessManager *balanceManager;
+    QNetworkAccessManager *transBalanceManager;
     QNetworkReply *reply;
     QByteArray webToken;
     QByteArray response_data;
-    QString transaction_date;
-    QString transaction_type;
-    int id_transaction;
-    int id_account;
-    int id_client;
+    //QString transaction_date;
+    //QString transaction_type;
+    //int id_transaction;
+    //int id_account;
+    //int id_client;
     int id_card;
-    float amount;
-    QString clientName;
+    //QString clientName;
     QString balance;
-    double balanceValue;
-    QString myClientId;
+    //QString myClientId;
+    QString myCardId;
     QTimer *transactionTimer;
     short s;
 
