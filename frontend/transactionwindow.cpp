@@ -4,6 +4,7 @@
 #include <QDebug>
 #include <windows.h>
 #include <QTimer>
+#include <QStandardItemModel>
 
 
 TransactionWindow::TransactionWindow(QByteArray wt, QString id_card, QWidget *parent)
@@ -33,48 +34,47 @@ TransactionWindow::TransactionWindow(QByteArray wt, QString id_card, QWidget *pa
 TransactionWindow::~TransactionWindow()
 {
     delete ui;
-        ui=nullptr;
+    ui=nullptr;
 }
 
 void TransactionWindow::TransSlot (QNetworkReply *reply)
 {
-
     QByteArray response_data=reply->readAll();
     qDebug()<<response_data;
     QJsonDocument json_doc = QJsonDocument::fromJson(response_data);
+    QJsonObject json_obj = json_doc.object();
     QJsonArray json_array = json_doc.array();
-    QString transaction1;
-    QString transaction2;
-    QString transaction3;
-    QString transaction4;
 
-    foreach (const QJsonValue &value, json_array)
-    {
-       QJsonObject json_obj = value.toObject();
-       transaction1+=QString::number(json_obj["summa"].toInt())+"\n\n";
-            ui->label_transact->setText(transaction1);
-       transaction2+=json_obj["asiakkaan nimi"].toString()+"\n\n";
-            ui->label_transact_2->setText(transaction2);
-       transaction3+=json_obj["päivämäärä"].toString()+"\n\n";
-            ui->label_transact_3->setText(transaction3);
-       transaction4+=json_obj["tapahtuman laji"].toString()+"\n\n";
-            ui->label_transact_4->setText(transaction4);
+    QStandardItemModel *model = new QStandardItemModel(0,3);
+    int row = 0;
+    model->setHeaderData(0, Qt::Horizontal, QObject::tr("Tapahtuma"));
+    model->setHeaderData(1, Qt::Horizontal, QObject::tr("Päivämäärä"));
+    model->setHeaderData(2, Qt::Horizontal, QObject::tr("Summa"));
 
+    foreach (const QJsonValue &value, json_array) {
+        QJsonObject itemObj = value.toObject();
+        QStandardItem *trType = new QStandardItem(itemObj.value("tapahtuman laji").toString());
+        model->setItem(row, 0, trType);
+        QStandardItem *trDate = new QStandardItem(itemObj.value("päivämäärä").toString());
+        model->setItem(row, 1, trDate);
+        QStandardItem *trAmount = new QStandardItem(QString::number(itemObj.value("summa").toInt()));
+        model->setItem(row, 2, trAmount);
+        row++;
     }
 
-        ui->label_2_client_2->setText(transaction2);
+    ui->tableView->setModel(model);
 
-        reply->deleteLater();
-        transManager->deleteLater();
+    reply->deleteLater();
+    transManager->deleteLater();
 
-        QString site_url=MyURL::getBaseUrl()+"/accountclient/"+myCardId;
-        QNetworkRequest request((site_url));
-        //WEBTOKEN ALKU
-        request.setRawHeader(QByteArray("Authorization"),(webToken));
-        //WEBTOKEN LOPPU
-        transBalanceManager = new QNetworkAccessManager(this);
-        connect(transBalanceManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(TransBalanceSlot(QNetworkReply*)));
-        reply = transBalanceManager->get(request);
+    QString site_url=MyURL::getBaseUrl()+"/accountclient/"+myCardId;
+    QNetworkRequest request((site_url));
+    //WEBTOKEN ALKU
+    request.setRawHeader(QByteArray("Authorization"),(webToken));
+    //WEBTOKEN LOPPU
+    transBalanceManager = new QNetworkAccessManager(this);
+    connect(transBalanceManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(TransBalanceSlot(QNetworkReply*)));
+    reply = transBalanceManager->get(request);
 }
 
 void TransactionWindow::TransBalanceSlot(QNetworkReply *reply)
@@ -84,8 +84,11 @@ void TransactionWindow::TransBalanceSlot(QNetworkReply *reply)
     QJsonDocument json_doc = QJsonDocument::fromJson(response_data);
     QJsonObject json_obj = json_doc.object();
 
+    clientName=json_obj["client_name"].toString();
     balance=QString::number(json_obj["balance"].toDouble());
-    ui->label_2_balance->setText(balance);
+
+    ui->label_client_name->setText(clientName);
+    ui->label_balance->setText(balance);
 
     reply->deleteLater();
     transBalanceManager->deleteLater();
@@ -106,3 +109,5 @@ void TransactionWindow::handleTimeout()
     }
 
 }
+
+

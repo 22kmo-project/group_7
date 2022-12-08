@@ -24,7 +24,6 @@ private slots:
     void TransBalanceSlot (QNetworkReply *reply);
     void handleTimeout();
 
-
 private:
     Ui::TransactionWindow*ui;
     QNetworkAccessManager *transManager;
@@ -38,7 +37,7 @@ private:
     //int id_account;
     //int id_client;
     int id_card;
-    //QString clientName;
+    QString clientName;
     QString balance;
     //QString myClientId;
     QString myCardId;
