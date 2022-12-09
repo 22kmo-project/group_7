@@ -34,12 +34,12 @@ const transaction = {
       callback
     );
   },
-  getTenTransactions: function(id,callback){
-    return db.query('select transaction.transaction as "tapahtuman laji", concat(client.fname," ",client.lname) as "asiakkaan nimi", account.balance as "tilin saldo", date_format(transaction_date,"%d.%m.%Y") as "päivämäärä", transaction.amount as "summa" from transaction inner join account on transaction.id_account=account.id_account inner join card on card.id_client=account.id_client inner join client on client.id_client=card.id_client where card.id_card=? ORDER BY transaction.transaction_date DESC limit 10;',[id],callback);
+  getTransactions: function(id,callback){
+    return db.query('select transaction.transaction as "tapahtuman laji", concat(fname," ",lname) as "asiakkaan nimi", balance as "tilin saldo", amount as "summa", date_format(transaction_date,"%d.%m.%Y") as "päivämäärä" from client inner join account on client.id_client=account.id_client inner join transaction on transaction.id_account=account.id_account inner join card on card.id_card=transaction.id_card where card.id_card=? ORDER BY transaction.transaction_date DESC;',[id],callback);
 
   },
   getFiveTransactions: function(id,callback){
-    return db.query('select transaction.transaction as "tapahtuman laji", concat(client.fname," ",client.lname) as "asiakkaan nimi", account.balance as "tilin saldo", date_format(transaction_date,"%d.%m.%Y") as "päivämäärä", transaction.amount as "summa" from transaction inner join account on transaction.id_account=account.id_account inner join card on card.id_client=account.id_client inner join client on client.id_client=card.id_client where card.id_card=? ORDER BY transaction.transaction_date DESC limit 5;',[id],callback);
+    return db.query('select transaction.transaction as "tapahtuman laji", concat(fname," ",lname) as "asiakkaan nimi", balance as "tilin saldo", amount as "summa", date_format(transaction_date,"%d.%m.%Y") as "päivämäärä" from client inner join account on client.id_client=account.id_client inner join transaction on transaction.id_account=account.id_account inner join card on card.id_card=transaction.id_card where card.id_card=? ORDER BY transaction.transaction_date DESC limit 5;',[id],callback);
   }
 };
 

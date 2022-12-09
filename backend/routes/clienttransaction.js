@@ -5,7 +5,7 @@ const transaction = require('../models/transaction_model');
 //Tämä hakee 10 ensimmäistä tilitapahtumaa
 router.get('/:id', function(request,response){
     const id=request.params.id;
-    transaction.getTenTransactions(id,function(err,dbResult){
+    transaction.getTransactions(id,function(err,dbResult){
         if(err){
             response.json(err);
         }
