@@ -19,7 +19,6 @@ class DrawWindow : public QDialog
 public:
     explicit DrawWindow(QByteArray wt, QString id_card, QWidget *parent = nullptr);
     ~DrawWindow();
-    //const QString &getWebToken() const;
 
 private slots:
     void drawSlot (QNetworkReply *reply);
@@ -39,18 +38,18 @@ private slots:
 private:
     Ui::DrawWindow *ui;
     QByteArray webToken;
+    QByteArray response_data;
+    QTimer *drawTimer;
     QString myCardId;
     QString myClientId;
     QString myAccountId;
-    QTimer *drawTimer;
-    short s;
-    QNetworkReply *reply;
-    QNetworkReply *replyPost;
-    QByteArray response_data;
     QString clientName;
     QString balance;
     QString amount;
+    QNetworkReply *reply;
+    QNetworkReply *replyPost;
     double balanceValue;
+    short s;
     QNetworkAccessManager *drawManager;
     QNetworkAccessManager *updateManager;
     QNetworkAccessManager *postManager;

@@ -24,7 +24,8 @@
    </property>
    <property name="font">
     <font>
-     <pointsize>15</pointsize>
+     <pointsize>13</pointsize>
+     <bold>true</bold>
     </font>
    </property>
    <property name="styleSheet">
@@ -32,16 +33,16 @@
 color: black;</string>
    </property>
    <property name="text">
-    <string>Lopeta</string>
+    <string>Kirjaudu ulos</string>
    </property>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
-     <x>250</x>
-     <y>130</y>
-     <width>211</width>
-     <height>321</height>
+     <x>270</x>
+     <y>120</y>
+     <width>271</width>
+     <height>351</height>
     </rect>
    </property>
    <property name="sizePolicy">
@@ -90,25 +91,6 @@ color: black;</string>
      </widget>
     </item>
     <item>
-     <widget class="QPushButton" name="button_withdraw">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>12</pointsize>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>Nosta rahaa</string>
-      </property>
-     </widget>
-    </item>
-    <item>
      <widget class="QPushButton" name="button_deposit">
       <property name="sizePolicy">
        <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
@@ -124,6 +106,25 @@ color: black;</string>
       </property>
       <property name="text">
        <string>Talleta rahaa</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="button_withdraw">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Nosta rahaa</string>
       </property>
      </widget>
     </item>
@@ -147,6 +148,30 @@ color: black;</string>
      </widget>
     </item>
    </layout>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>20</y>
+     <width>551</width>
+     <height>81</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>18</pointsize>
+    </font>
+   </property>
+   <property name="layoutDirection">
+    <enum>Qt::LeftToRight</enum>
+   </property>
+   <property name="text">
+    <string>Tervetuloa! Valitse seuraavista toiminnoista.</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
   </widget>
  </widget>
  <resources/>
