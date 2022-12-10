@@ -4,6 +4,7 @@
 #include <QDebug>
 #include <windows.h>
 #include <QTimer>
+#include <QStandardItemModel>
 
 BalanceWindow::BalanceWindow(QByteArray wt, QString id_card, QWidget *parent) :
     QDialog(parent),
@@ -46,14 +47,27 @@ void BalanceWindow::balanceSlot(QNetworkReply *reply)
     QByteArray response_data=reply->readAll();
     qDebug()<<response_data;
     QJsonDocument json_doc = QJsonDocument::fromJson(response_data);
+    QJsonObject json_obj = json_doc.object();
     QJsonArray json_array = json_doc.array();
-    QString transaction;
+
+    QStandardItemModel *model = new QStandardItemModel(0,3);
+    int row = 0;
+    model->setHeaderData(0, Qt::Horizontal, QObject::tr("Tapahtuma"));
+    model->setHeaderData(1, Qt::Horizontal, QObject::tr("Päivämäärä"));
+    model->setHeaderData(2, Qt::Horizontal, QObject::tr("Summa"));
+
     foreach (const QJsonValue &value, json_array) {
-       QJsonObject json_obj = value.toObject();
-       transaction+="Tapahtuman laji:"+json_obj["tapahtuman laji"].toString()+", päivämäärä:"+json_obj["päivämäärä"].toString()+", summa:"+QString::number(json_obj["summa"].toInt())+"\n";
+        QJsonObject itemObj = value.toObject();
+        QStandardItem *trType = new QStandardItem(itemObj.value("tapahtuman laji").toString());
+        model->setItem(row, 0, trType);
+        QStandardItem *trDate = new QStandardItem(itemObj.value("päivämäärä").toString());
+        model->setItem(row, 1, trDate);
+        QStandardItem *trAmount = new QStandardItem(QString::number(itemObj.value("summa").toInt()));
+        model->setItem(row, 2, trAmount);
+        row++;
     }
 
-    ui->label_transactions->setText(transaction);
+    ui->tableView->setModel(model);
 
     reply->deleteLater();
     balanceManager->deleteLater();
