@@ -62,7 +62,15 @@ void TransactionWindow::TransSlot (QNetworkReply *reply)
         row++;
     }
 
-    ui->tableView->setModel(model);
+    filter.setPageData(true);
+    filter.setPageSize(10);
+    filter.setCurrentPage(0);
+    connect(&filter, &Filter::started,this,&TransactionWindow::started);
+    connect(&filter, &Filter::finished,this,&TransactionWindow::finished);
+
+    filter.setSourceModel(model);
+
+    ui->tableView->setModel(&filter);
 
     reply->deleteLater();
     transManager->deleteLater();
@@ -102,12 +110,34 @@ void TransactionWindow::handleTimeout()
 {
     s++;
     qDebug()<<s;
-    if (s==10)
+    if (s==30)
     {
         transactionTimer->stop();
-         close();
+        close();
     }
 
 }
 
+void TransactionWindow::on_btn_back_clicked()
+{
+    filter.back();
+}
 
+
+void TransactionWindow::on_btn_next_clicked()
+{
+    filter.next();
+}
+
+void TransactionWindow::started()
+{
+    qInfo() << "STARTED SEARCHING";
+}
+
+void TransactionWindow::finished()
+{
+    qInfo() << "FINISHED SEARCHING";
+    QString current = QString::number(filter.currentPage());
+    QString total = QString::number(filter.pageCount());
+    ui->label_count->setText(current+" / "+total);
+}
