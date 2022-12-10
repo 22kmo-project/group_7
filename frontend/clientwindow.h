@@ -26,6 +26,7 @@ public:
 
     const QString &getWebToken() const;
     void setWebToken(const QByteArray &newWebToken);
+    QByteArray getWebToken();
 
 private slots:
     void on_button_nayta_saldo_clicked();

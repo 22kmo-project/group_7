@@ -16,6 +16,7 @@ var clienttransactionRouter = require('./routes/clienttransaction');
 var clientfivetransactionRouter = require('./routes/clientfivetransaction');
 var accounttransferRouter = require('./routes/accounttransfer');
 var cardlockedRouter = require('./routes/cardlocked');
+var changecardlockedRouter = require('./routes/changecardlocked');
 
 var app = express();
 
@@ -59,5 +60,6 @@ app.use('/accountclient', accountclientRouter);
 app.use('/clienttransaction', clienttransactionRouter);
 app.use('/clientfivetransaction', clientfivetransactionRouter);
 app.use('/accounttransfer', accounttransferRouter);
+app.use('/changecardlocked', changecardlockedRouter);
 
 module.exports = app;

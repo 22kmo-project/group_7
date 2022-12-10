@@ -31,14 +31,30 @@ const card = {
 
   lockpin: function(id, callback) {    
     return db.query(
-            'update card set card_status=1 where id_card=?', //query toimii workbenchissa
-            [id],
+            'update card set card_status=1 where id_card=?', 
+            [id], callback);
+  },
+
+  getAllLockedCards: function(callback) {    
+    return db.query(
+            'select id_card from card where card_status=1',
             callback);
   },
   
   checkPin: function(id,callback){
     return db.query('select pin from card where id_card=? and card_status=0',[id],callback);
+  },
+
+  deleteAllLockedCards: function(callback) {
+    return db.query('delete from card where card_status=1', callback);
+  },
+
+  unlockpin: function(id, callback) {    
+    return db.query(
+            'update card set card_status=0 where id_card=?', 
+            [id], callback);
   }
+
 };
 
 module.exports = card;

@@ -34,6 +34,11 @@ void ClientWindow::setWebToken(const QByteArray &newWebToken)
     webToken = newWebToken;
 }
 
+QByteArray ClientWindow::getWebToken()
+{
+    return webToken;
+}
+
 void ClientWindow::on_button_nayta_saldo_clicked()//ESSI
 {
 
@@ -57,8 +62,6 @@ void ClientWindow::on_pushButtonTrans_clicked() //JENNI-MARIA
         s=0;
         pQTimer->start(1000);
     }
-
-
 }
 
 
