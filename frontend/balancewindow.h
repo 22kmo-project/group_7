@@ -37,7 +37,6 @@ private:
     QString clientName;
     QString balance;
     double balanceValue;
-    QString myClientId;
     QTimer *balanceTimer;
     short s;
 };

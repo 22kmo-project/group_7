@@ -134,7 +134,6 @@ void TransferWindow::transferSlot(QNetworkReply *replyTransfer)
 
     replyTransfer->deleteLater();
     transferManager->deleteLater();
-    //this->close();
 }
 
 void TransferWindow::handleTimeout()
@@ -152,7 +151,9 @@ void TransferWindow::handleTimeout()
 void TransferWindow::on_btn_clear_clicked()
 {
     transferTimer->stop();
+    s=0;
     ui->lineEdit->clear();
+    transferTimer->start(1000);
 
 }
 

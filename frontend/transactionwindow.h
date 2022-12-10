@@ -30,18 +30,12 @@ private:
     QNetworkAccessManager *transBalanceManager;
     QNetworkReply *reply;
     QByteArray webToken;
-    QByteArray response_data;
-    //QString transaction_date;
-    //QString transaction_type;
-    //int id_transaction;
-    //int id_account;
-    //int id_client;
-    int id_card;
+    QByteArray response_data;    
     QString clientName;
     QString balance;
-    //QString myClientId;
     QString myCardId;
     QTimer *transactionTimer;
+    int id_card;
     short s;
 
 };

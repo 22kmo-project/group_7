@@ -16,11 +16,21 @@
   <widget class="QPushButton" name="pushButtonClose">
    <property name="geometry">
     <rect>
-     <x>650</x>
-     <y>530</y>
-     <width>93</width>
-     <height>29</height>
+     <x>640</x>
+     <y>510</y>
+     <width>121</width>
+     <height>61</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>15</pointsize>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background: red;
+color: black;</string>
    </property>
    <property name="text">
     <string>Sulje</string>
