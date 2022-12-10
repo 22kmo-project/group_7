@@ -102,6 +102,7 @@ void MainWindow::loginSlot(QNetworkReply *reply)
                 id_card="";
                 pin="";
                 objectClientWindow->setWebToken("");
+                qDebug()<<"Webtoken: "+objectClientWindow->getWebToken();
 
             }
         }

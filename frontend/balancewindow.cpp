@@ -51,7 +51,7 @@ void BalanceWindow::balanceSlot(QNetworkReply *reply)
     QJsonArray json_array = json_doc.array();
 
     QStandardItemModel *model = new QStandardItemModel(0,3);
-    int row = 0;
+    row = 0;
     model->setHeaderData(0, Qt::Horizontal, QObject::tr("Tapahtuma"));
     model->setHeaderData(1, Qt::Horizontal, QObject::tr("Päivämäärä"));
     model->setHeaderData(2, Qt::Horizontal, QObject::tr("Summa"));

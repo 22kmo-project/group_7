@@ -39,6 +39,7 @@ private:
     double balanceValue;
     QTimer *balanceTimer;
     short s;
+    int row;
 };
 
 #endif // BALANCEWINDOW_H
