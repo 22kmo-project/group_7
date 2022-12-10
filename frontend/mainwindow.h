@@ -45,7 +45,7 @@ private:
     Ui::MainWindow *ui;
     int ok_count;
     int pin_count;
-    bool locked_check;
+    bool check;
     ClientWindow *objectClientWindow;
     QNetworkAccessManager *loginManager;
     QNetworkAccessManager *lockManager;
@@ -55,7 +55,6 @@ private:
     QString pin;
     QTimer * Timer;
     short s;
-    QString check_id;
 
 };
 #endif // MAINWINDOW_H

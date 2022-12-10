@@ -151,6 +151,7 @@
    <property name="font">
     <font>
      <pointsize>15</pointsize>
+     <bold>true</bold>
     </font>
    </property>
    <property name="styleSheet">
@@ -263,6 +264,7 @@ color: black;</string>
    <property name="font">
     <font>
      <pointsize>15</pointsize>
+     <bold>true</bold>
     </font>
    </property>
    <property name="styleSheet">

@@ -12,7 +12,7 @@ MainWindow::MainWindow(QWidget *parent)
     pin_count=0;
     s=0;
     ok_count=0;
-    locked_check=false;
+    check=false;
     Timer = new QTimer;
     connect(Timer,SIGNAL(timeout()),this,SLOT(handleTimeout()));
     ui->label_info->setText("Anna kortin numero ja paina OK");
@@ -30,9 +30,10 @@ void MainWindow::on_btn_ok_clicked()
         id_card=ui->lineEdit->text();
         ui->lineEdit->clear();
         ui->lineEdit->setEchoMode(QLineEdit::Password);
+
         ui->label_info->setText("Anna pin-koodi ja paina OK");
         ok_count++;
-        locked_check=false;
+        check=false;
     }
     else {
         pin=ui->lineEdit->text();
@@ -64,6 +65,7 @@ void MainWindow::loginSlot(QNetworkReply *reply)
     if(response_data.length()==0){
         ui->lineEdit->clear();
         ui->label_info->setText("Palvelin ei vastaa!");
+        check=true;
         Timer->start(1000);
     }
     else{
@@ -71,6 +73,7 @@ void MainWindow::loginSlot(QNetworkReply *reply)
     if(QString::compare(response_data,"-4078")==0){
         ui->lineEdit->clear();
         ui->label_info->setText("Virhe tietokantayhteydessä!");
+        check=true;
         Timer->start(1000);
     }
 
@@ -87,18 +90,19 @@ void MainWindow::loginSlot(QNetworkReply *reply)
 
         else {
             ui->lineEdit->clear();
+            ui->lineEdit->setEchoMode(QLineEdit::Normal);
             ok_count=0;
             ui->label_info->setText("Anna kortin numero ja paina OK");
             objectClientWindow = new ClientWindow(id_card, this);
             objectClientWindow->setWebToken("Bearer "+response_data);
             objectClientWindow->setModal(true);
-            int a=objectClientWindow->exec();
-            if(a==0){
+            if(objectClientWindow->exec()==0){
                 pin_count=0;
                 s=0;
                 id_card="";
                 pin="";
                 objectClientWindow->setWebToken("");
+                qDebug()<<"Webtoken: "+objectClientWindow->getWebToken();
 
             }
         }
@@ -185,7 +189,7 @@ void MainWindow::handleTimeout()
 {
     s++;
     qDebug()<<s;
-    if (s==10 && pin_count<3 && locked_check==false)
+    if (s==10 && pin_count<3 && check==false)
     {
         Timer->stop();
         s=0;
@@ -195,11 +199,11 @@ void MainWindow::handleTimeout()
         ok_count=1;
     }
 
-    else if(s==10 && pin_count==3 && locked_check==false){
+    else if(s==10 && pin_count==3 && check==false){
         Timer->stop();
         s=0;
         ui->lineEdit->clear();
-        ui->label_info->setText("Pin-koodi laitettu kolme kertaa väärin, kortti lukittu!");
+        ui->label_info->setText("Pin-koodi laitettu\n kolme kertaa väärin,\n kortti lukittu!");
         QJsonObject jsonObj;
         ui->lineEdit->clear();
 
@@ -211,16 +215,17 @@ void MainWindow::handleTimeout()
 
         reply = lockManager->put(request, QJsonDocument().toJson());
         pin_count=0;
-        locked_check=true;
+        check=true;
         Timer->start(1000);
     }
-    else if(s==10 && pin_count<3 && locked_check==true){
+    else if(s==10 && pin_count<3 && check==true){
          Timer->stop();
          pin_count=0;
          s=0;
          id_card="";
          pin="";
          ok_count=0;
+         ui->lineEdit->setEchoMode(QLineEdit::Normal);
          ui->label_info->setText("Anna kortin numero ja paina ok");
 
     }

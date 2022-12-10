@@ -38,19 +38,19 @@ private slots:
 private:
     Ui::DepositWindow *ui;
     QByteArray webToken;
+    QByteArray response_data;
     QString myCardId;
     QString myClientId;
-    QString myAccountId;
-    QTimer *depositTimer;
-    short s;
-    QNetworkReply *reply;
-    QNetworkReply *replyPost;
-    QByteArray response_data;
+    QString myAccountId;    
     QString clientName;
     QString balance;
     QString amount;
+    QTimer *depositTimer;
+    short s;
     double amountValue;
     double balanceValue;
+    QNetworkReply *reply;
+    QNetworkReply *replyPost;
     QNetworkAccessManager *depositManager;
     QNetworkAccessManager *updateManager;
     QNetworkAccessManager *postManager;

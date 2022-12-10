@@ -42,11 +42,11 @@ private:
     QNetworkReply *reply;
     QByteArray webToken;
     QByteArray response_data;
-    int id_card;
     QString clientName;
     QString balance;
     QString myCardId;
     QTimer *transactionTimer;
+    int id_card;
     short s;
     QStandardItemModel model;
     Filter filter;

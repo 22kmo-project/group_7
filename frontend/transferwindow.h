@@ -43,20 +43,20 @@ private slots:
 private:
     Ui::TransferWindow *ui;
     QByteArray webToken;
+    QByteArray response_data;
     QString myCardId;
     QString myAccountId;
     QString myAccountIdReceiver;
-    int myAccountIdReceiverInt;
-    int ok_count;
+    QString amount;
     QString id_account;
     QNetworkReply *reply;
     QNetworkReply *replyTransfer;
-    QByteArray response_data;
-    QString amount;
-    double amountValue;
     QNetworkAccessManager *getIdManager;
     QNetworkAccessManager *transferManager;
     QTimer *transferTimer;
+    double amountValue;
+    int myAccountIdReceiverInt;
+    int ok_count;
     short s;
 };
 
