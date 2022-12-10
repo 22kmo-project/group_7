@@ -32,15 +32,32 @@
      <x>70</x>
      <y>250</y>
      <width>521</width>
-     <height>231</height>
+     <height>311</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>15</pointsize>
+    </font>
    </property>
    <property name="editTriggers">
     <set>QAbstractItemView::NoEditTriggers</set>
    </property>
+   <property name="alternatingRowColors">
+    <bool>true</bool>
+   </property>
    <property name="selectionMode">
     <enum>QAbstractItemView::NoSelection</enum>
    </property>
+   <attribute name="horizontalHeaderDefaultSectionSize">
+    <number>150</number>
+   </attribute>
+   <attribute name="verticalHeaderMinimumSectionSize">
+    <number>30</number>
+   </attribute>
+   <attribute name="verticalHeaderDefaultSectionSize">
+    <number>30</number>
+   </attribute>
   </widget>
   <widget class="QLabel" name="label_balance">
    <property name="geometry">

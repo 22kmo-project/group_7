@@ -15,7 +15,7 @@ MainWindow::MainWindow(QWidget *parent)
     locked_check=false;
     Timer = new QTimer;
     connect(Timer,SIGNAL(timeout()),this,SLOT(handleTimeout()));
-    ui->label_info->setText("Anna kortin numero ja paina ok");
+    ui->label_info->setText("Anna kortin numero ja paina OK");
 }
 
 MainWindow::~MainWindow()
@@ -30,7 +30,7 @@ void MainWindow::on_btn_ok_clicked()
         id_card=ui->lineEdit->text();
         ui->lineEdit->clear();
         ui->lineEdit->setEchoMode(QLineEdit::Password);
-        ui->label_info->setText("Anna pin-koodi ja paina ok");
+        ui->label_info->setText("Anna pin-koodi ja paina OK");
         ok_count++;
         locked_check=false;
     }
@@ -78,7 +78,9 @@ void MainWindow::loginSlot(QNetworkReply *reply)
 
         if(test==0){
             ui->lineEdit->clear();
-            ui->label_info->setText("Kortin numero ja pin-koodi eivät täsmää!\n Huomioi, että kortti voi myös olla lukittu.");
+            ui->label_info->setText("Kortin numero ja pin-koodi\n"
+                                    "eivät täsmää tai kortti on lukittu.\n"
+                                    "Palaat kohta alkuun.");
             pin_count++;
             Timer->start(1000);
         }
@@ -86,7 +88,7 @@ void MainWindow::loginSlot(QNetworkReply *reply)
         else {
             ui->lineEdit->clear();
             ok_count=0;
-            ui->label_info->setText("Anna kortin numero ja paina ok");
+            ui->label_info->setText("Anna kortin numero ja paina OK");
             objectClientWindow = new ClientWindow(id_card, this);
             objectClientWindow->setWebToken("Bearer "+response_data);
             objectClientWindow->setModal(true);

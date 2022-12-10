@@ -16,7 +16,6 @@ ClientWindow::ClientWindow(QString id_card, QWidget *parent) :
     this->setWindowTitle("Etusivu");
     s=0;
     pQTimer = new QTimer;
-    ui->label_id_card->setText(id_card);
     myCardId=id_card;
 
     connect(pQTimer,SIGNAL(timeout()),this,SLOT(handleTimeout()));
