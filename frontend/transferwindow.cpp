@@ -117,7 +117,6 @@ void TransferWindow::transferSlot(QNetworkReply *replyTransfer)
         ui->label_info->setText("Jokin meni vikaan. Tarkista\n"
                                 "vastaanottajan tilinumero\n"
                                 "ja siirrettävä summa\n"
-                                "\n"
                                 "Palaa edelliseen valikkoon\n"
                                 "painamalla Sulje\n"
                                 "ja yritä uudelleen.");

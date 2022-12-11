@@ -9,7 +9,7 @@ Filter::Filter(QObject *parent) : QSortFilterProxyModel(parent)
     regxpattern = "";
     setCurrentPage(0);
     setPageData(false);
-    setPageSize(100);
+    setPageSize(10);
 }
 
 bool Filter::pageData()
@@ -60,15 +60,24 @@ void Filter::setCurrentPage(int value)
 void Filter::back()
 {
     currentpage--;
-    if(currentpage<0) currentpage=0;
-    search();
+    if(currentpage<0) {
+        currentpage=0;
+    }
+    else{
+        search();
+    }
 }
 
 void Filter::next()
 {
     currentpage++;
-    if(currentpage>total_pages) currentpage=total_pages;
-    search();
+    if(currentpage>total_pages){
+        currentpage=total_pages;               
+    }
+
+    else {
+        search();        
+    }
 }
 
 void Filter::search()
@@ -90,7 +99,7 @@ bool Filter::process(bool allowed, bool countonly, QString reason) const
     if(countonly)
     {
         total_passed++;
-        total_pages = total_passed / pagesize;
+        total_pages = total_passed / pagesize;        
     }
 
     qInfo() << "Allowed: " << allowed << reason;
@@ -105,7 +114,7 @@ bool Filter::filterAcceptsRow(int source_row, const QModelIndex &source_parent) 
     // get the index of the item
     QModelIndex index = sourceModel()->index(source_row,filterKeyColumn(),source_parent);
 
-    // make sure it meets our filter
+    // make sure it meets filter
     if(!sourceModel()->data(index).toString().contains(filterRegularExpression()))
         return process(false, false, "Failed to filter");
 
