@@ -25,6 +25,35 @@ function(request, response) {
   });
 });
 
-
+router.get('/:id?',
+ function(request, response) {
+  if (request.params.id) {
+    card.getById(request.params.id, function(err, dbResult) {
+      if (err) {
+        response.json(err);
+      } else {
+        response.json(dbResult[0]);
+      }
+    });
+  } else {
+    card.getAll(function(err, dbResult) {
+      if (err) {
+        response.json(err);
+      } else {
+        response.json(dbResult);
+      }
+    });
+  }
+});
+router.post('/', 
+function(request, response) {
+  card.add(request.body, function(err, dbResult) {
+    if (err) {
+      response.json(err);
+    } else {
+      response.json(request.body); 
+    }
+  });
+});
 
 module.exports = router;

@@ -25,4 +25,26 @@ function(request, response) {
   });
 });
 
+router.post('/', 
+function(request, response) {
+  transaction.add(request.body, function(err, dbResult) {
+    if (err) {
+      response.json(err);
+    } else {
+      response.json(request.body); 
+    }
+  });
+});
+
+router.put('/:id', 
+function(request, response) {
+  transaction.update(request.params.id, request.body, function(err, dbResult) {
+    if (err) {
+      response.json(err);
+    } else {
+      response.json(dbResult);
+    }
+  });
+});
+
 module.exports=router;

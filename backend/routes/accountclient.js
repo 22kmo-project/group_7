@@ -25,13 +25,13 @@ router.get('/:id',function(request,response){
     });
 });
 
-router.put('/:id', 
+router.post('/', 
 function(request, response) {
-  account.update(request.params.id, request.body, function(err, dbResult) {
+  account.add(request.body, function(err, dbResult) {
     if (err) {
       response.json(err);
     } else {
-      response.json(dbResult);
+      response.json(request.body); 
     }
   });
 });
@@ -46,5 +46,18 @@ function(request, response) {
     }
   });
 });
+
+router.put('/:id', 
+function(request, response) {
+  account.update(request.params.id, request.body, function(err, dbResult) {
+    if (err) {
+      response.json(err);
+    } else {
+      response.json(dbResult);
+    }
+  });
+});
+
+
 
 module.exports = router;
