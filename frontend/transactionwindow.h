@@ -6,6 +6,13 @@
 #include <QNetworkAccessManager>
 #include <QJsonDocument>
 
+#include <QFileDialog>
+#include <QInputDialog>
+#include <QMessageBox>
+#include <QStandardItemModel>
+#include <QSortFilterProxyModel>
+#include "filter.h"
+
 namespace Ui {
 class TransactionWindow;
 }
@@ -23,6 +30,10 @@ private slots:
     void on_pushButtonClose_clicked();
     void TransBalanceSlot (QNetworkReply *reply);
     void handleTimeout();
+    void on_btn_back_clicked();
+    void on_btn_next_clicked();
+    void started();
+    void finished();
 
 private:
     Ui::TransactionWindow*ui;
@@ -30,14 +41,15 @@ private:
     QNetworkAccessManager *transBalanceManager;
     QNetworkReply *reply;
     QByteArray webToken;
-    QByteArray response_data;    
+    QByteArray response_data;
     QString clientName;
     QString balance;
     QString myCardId;
     QTimer *transactionTimer;
     int id_card;
     short s;
-
+    QStandardItemModel model;
+    Filter filter;
 };
 
 #endif // TRANSACTIONWINDOW_H

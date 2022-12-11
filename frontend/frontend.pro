@@ -14,6 +14,7 @@ SOURCES += \
     clientwindow.cpp \
     depositwindow.cpp \
     drawwindow.cpp \
+    filter.cpp \
     main.cpp \
     mainwindow.cpp \
     myurl.cpp \
@@ -25,6 +26,7 @@ HEADERS += \
     clientwindow.h \
     depositwindow.h \
     drawwindow.h \
+    filter.h \
     mainwindow.h \
     myurl.h \
     transactionwindow.h \
