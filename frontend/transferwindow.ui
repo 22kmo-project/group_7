@@ -62,13 +62,13 @@ color: black</string>
       </property>
       <property name="font">
        <font>
-        <family>Consolas</family>
-        <pointsize>12</pointsize>
-        <bold>true</bold>
+        <family>Segoe UI</family>
+        <pointsize>20</pointsize>
+        <bold>false</bold>
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background: white</string>
+       <string notr="true"/>
       </property>
       <property name="frameShape">
        <enum>QFrame::NoFrame</enum>
@@ -257,7 +257,7 @@ color: black</string>
         </property>
         <property name="font">
          <font>
-          <pointsize>12</pointsize>
+          <pointsize>15</pointsize>
           <bold>true</bold>
          </font>
         </property>
@@ -318,7 +318,7 @@ color: black</string>
         </property>
         <property name="font">
          <font>
-          <pointsize>12</pointsize>
+          <pointsize>15</pointsize>
           <bold>true</bold>
          </font>
         </property>

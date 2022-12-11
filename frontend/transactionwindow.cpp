@@ -105,13 +105,14 @@ void TransactionWindow::TransBalanceSlot(QNetworkReply *reply)
 
 void TransactionWindow::on_pushButtonClose_clicked()
 {
+    transactionTimer->stop();
     close();
 }
 void TransactionWindow::handleTimeout()
 {
     s++;
     qDebug()<<s;
-    if (s==30)
+    if (s==10)
     {
         transactionTimer->stop();
         close();
@@ -121,13 +122,19 @@ void TransactionWindow::handleTimeout()
 
 void TransactionWindow::on_btn_back_clicked()
 {
+    transactionTimer->stop();
+    s=0;
     filter.back();
+    transactionTimer->start(1000);
 }
 
 
 void TransactionWindow::on_btn_next_clicked()
 {
+    transactionTimer->stop();
+    s=0;
     filter.next();
+    transactionTimer->start(1000);
 }
 
 void TransactionWindow::started()
