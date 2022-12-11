@@ -17,6 +17,7 @@ ClientWindow::ClientWindow(QString id_card, QWidget *parent) :
     s=0;
     pQTimer = new QTimer;
     myCardId=id_card;
+    ui->label_infotext->setText("Tervetuloa! Valitse seuraavista toiminnoista.");
 
     connect(pQTimer,SIGNAL(timeout()),this,SLOT(handleTimeout()));
     pQTimer->start(1000);
@@ -45,8 +46,8 @@ void ClientWindow::on_button_nayta_saldo_clicked()//ESSI
     pQTimer->stop();
     objectBalanceWindow = new BalanceWindow(webToken,myCardId, this);
     objectBalanceWindow->setModal(true);
-    int a=objectBalanceWindow->exec();
-    if(a==0){
+    if(objectBalanceWindow->exec()==0){
+        ui->label_infotext->setText("Valitse seuraavista toiminnoista");
         s=0;
         pQTimer->start(1000);
     }

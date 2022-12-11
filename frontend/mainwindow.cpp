@@ -132,6 +132,9 @@ void MainWindow::on_btn_close_clicked()
 {
     QApplication::closeAllWindows();
     qApp->quit();
+    //Start program again
+    QProcess::startDetached(qApp->arguments()[0], qApp->arguments());
+
 }
 
 void MainWindow::on_btn_1_clicked()
