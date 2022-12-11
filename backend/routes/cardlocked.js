@@ -3,7 +3,7 @@ const router = express.Router();
 const card = require('../models/card_model');
 
 
-router.put('/:id', 
+router.put('/:id',
 function(request, response) {
   card.lockpin(request.params.id, function(err, dbResult) {
     if (err) {
@@ -13,5 +13,18 @@ function(request, response) {
     }
   });
 });
+
+router.delete('/:id', 
+function(request, response) {
+  card.delete(request.params.id, function(err, dbResult) {
+    if (err) {
+      response.json(err);
+    } else {
+      response.json(dbResult);
+    }
+  });
+});
+
+
 
 module.exports = router;

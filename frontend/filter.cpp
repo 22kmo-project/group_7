@@ -68,7 +68,7 @@ void Filter::next()
 {
     currentpage++;
     if(currentpage>total_pages) currentpage=total_pages;
-    search();
+    else search();
 }
 
 void Filter::search()

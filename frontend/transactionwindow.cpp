@@ -31,6 +31,7 @@ TransactionWindow::TransactionWindow(QByteArray wt, QString id_card, QWidget *pa
     connect(transManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(TransSlot(QNetworkReply*)));
     reply = transManager->get(request);
 }
+
 TransactionWindow::~TransactionWindow()
 {
     delete ui;

@@ -51,7 +51,7 @@ void MainWindow::on_btn_ok_clicked()
         connect(loginManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(loginSlot(QNetworkReply*)));
 
         reply = loginManager->post(request, QJsonDocument(jsonObj).toJson());
-            }
+    }
 }
 
 void MainWindow::loginSlot(QNetworkReply *reply)
@@ -103,7 +103,6 @@ void MainWindow::loginSlot(QNetworkReply *reply)
                 pin="";
                 objectClientWindow->setWebToken("");
                 qDebug()<<"Webtoken: "+objectClientWindow->getWebToken();
-
             }
         }
     }
@@ -111,7 +110,6 @@ void MainWindow::loginSlot(QNetworkReply *reply)
 
     reply->deleteLater();
     loginManager->deleteLater();
-
 
 }
 
@@ -123,6 +121,52 @@ void MainWindow::lockedSlot(QNetworkReply *reply)
     qDebug()<<test;
 }
 
+void MainWindow::handleTimeout()
+{
+    s++;
+    qDebug()<<s;
+    if (s==10 && pin_count<3 && check==false)
+    {
+        Timer->stop();
+        s=0;
+        ui->lineEdit->clear();
+
+        ui->label_info->setText("Anna pin-koodi ja paina ok");
+        ok_count=1;
+    }
+
+    else if(s==10 && pin_count==3 && check==false){
+        Timer->stop();
+        s=0;
+        ui->lineEdit->clear();
+        ui->label_info->setText("Pin-koodi laitettu\n kolme kertaa väärin,\n kortti lukittu!");
+        QJsonObject jsonObj;
+        ui->lineEdit->clear();
+
+        QString site_url_lock=MyURL::getBaseUrl()+"/cardlocked/"+id_card;
+        QNetworkRequest request((site_url_lock));
+
+        lockManager = new QNetworkAccessManager(this);
+        connect(lockManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(lockedSlot(QNetworkReply*)));
+
+        reply = lockManager->put(request, QJsonDocument().toJson());
+        pin_count=0;
+        check=true;
+        Timer->start(1000);
+    }
+    else if(s==10 && pin_count<3 && check==true){
+         Timer->stop();
+         pin_count=0;
+         s=0;
+         id_card="";
+         pin="";
+         ok_count=0;
+         ui->lineEdit->setEchoMode(QLineEdit::Normal);
+         ui->label_info->setText("Anna kortin numero ja paina ok");
+
+    }
+}
+
 void MainWindow::on_btn_clear_clicked()
 {
     ui->lineEdit->clear();
@@ -130,8 +174,8 @@ void MainWindow::on_btn_clear_clicked()
 
 void MainWindow::on_btn_close_clicked()
 {
-    QApplication::closeAllWindows();
     qApp->quit();
+    QProcess::startDetached(qApp->arguments()[0], qApp->arguments());
 }
 
 void MainWindow::on_btn_1_clicked()
@@ -183,50 +227,4 @@ void MainWindow::on_btn_9_clicked()
 void MainWindow::on_btn_0_clicked()
 {
     ui->lineEdit->setText(ui->lineEdit->text()+ "0");
-}
-
-void MainWindow::handleTimeout()
-{
-    s++;
-    qDebug()<<s;
-    if (s==10 && pin_count<3 && check==false)
-    {
-        Timer->stop();
-        s=0;
-        ui->lineEdit->clear();
-
-        ui->label_info->setText("Anna pin-koodi ja paina ok");
-        ok_count=1;
-    }
-
-    else if(s==10 && pin_count==3 && check==false){
-        Timer->stop();
-        s=0;
-        ui->lineEdit->clear();
-        ui->label_info->setText("Pin-koodi laitettu\n kolme kertaa väärin,\n kortti lukittu!");
-        QJsonObject jsonObj;
-        ui->lineEdit->clear();
-
-        QString site_url_lock=MyURL::getBaseUrl()+"/cardlocked/"+id_card;
-        QNetworkRequest request((site_url_lock));
-
-        lockManager = new QNetworkAccessManager(this);
-        connect(lockManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(lockedSlot(QNetworkReply*)));
-
-        reply = lockManager->put(request, QJsonDocument().toJson());
-        pin_count=0;
-        check=true;
-        Timer->start(1000);
-    }
-    else if(s==10 && pin_count<3 && check==true){
-         Timer->stop();
-         pin_count=0;
-         s=0;
-         id_card="";
-         pin="";
-         ok_count=0;
-         ui->lineEdit->setEchoMode(QLineEdit::Normal);
-         ui->label_info->setText("Anna kortin numero ja paina ok");
-
-    }
 }
