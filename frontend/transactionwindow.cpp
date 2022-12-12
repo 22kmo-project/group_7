@@ -119,14 +119,6 @@ void TransactionWindow::handleTimeout()
 
 }
 
-void TransactionWindow::on_btn_back_clicked()
-{
-    transactionTimer->stop();
-    s=0;
-    filter.back();
-    transactionTimer->start(1000);
-}
-
 
 void TransactionWindow::on_btn_next_clicked()
 {
