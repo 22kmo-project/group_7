@@ -60,6 +60,7 @@ void Filter::setCurrentPage(int value)
 void Filter::next()
 {
     currentpage++;
+
     if(currentpage>total_pages){
         currentpage=total_pages;               
     }
@@ -67,6 +68,7 @@ void Filter::next()
     else {
         search();        
     }
+
 }
 
 void Filter::search()

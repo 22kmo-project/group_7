@@ -3,13 +3,55 @@ const router = express.Router();
 const card = require('../models/card_model');
 
 
-router.put('/:id', 
+router.put('/:id',
 function(request, response) {
   card.lockpin(request.params.id, function(err, dbResult) {
     if (err) {
       response.json(err);
     } else {
       response.json(dbResult);
+    }
+  });
+});
+
+router.delete('/:id', 
+function(request, response) {
+  card.delete(request.params.id, function(err, dbResult) {
+    if (err) {
+      response.json(err);
+    } else {
+      response.json(dbResult);
+    }
+  });
+});
+
+router.get('/:id?',
+ function(request, response) {
+  if (request.params.id) {
+    card.getById(request.params.id, function(err, dbResult) {
+      if (err) {
+        response.json(err);
+      } else {
+        response.json(dbResult[0]);
+      }
+    });
+  } else {
+    card.getAll(function(err, dbResult) {
+      if (err) {
+        response.json(err);
+      } else {
+        response.json(dbResult);
+      }
+    });
+  }
+});
+router.post('/', 
+function(request, response) {
+  card.add(request.body, function(err, dbResult) {
+    if (err) {
+      response.json(err);
+    } else {
+      response.json(request.body); 
     }
   });
 });
