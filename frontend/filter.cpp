@@ -57,17 +57,6 @@ void Filter::setCurrentPage(int value)
     search();
 }
 
-void Filter::back()
-{
-    currentpage--;
-    if(currentpage<0) {
-        currentpage=0;
-    }
-    else{
-        search();
-    }
-}
-
 void Filter::next()
 {
     currentpage++;

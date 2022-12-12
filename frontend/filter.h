@@ -29,7 +29,6 @@ signals:
     void finished() const;
 
 public slots:
-    void back();
     void next();
 
 protected:

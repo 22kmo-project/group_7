@@ -29,8 +29,7 @@ private slots:
     void TransSlot(QNetworkReply *reply);
     void on_pushButtonClose_clicked();
     void TransBalanceSlot (QNetworkReply *reply);
-    void handleTimeout();
-    void on_btn_back_clicked();
+    void handleTimeout();   
     void on_btn_next_clicked();
     void started();
     void finished();
